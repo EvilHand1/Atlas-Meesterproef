@@ -97,15 +97,10 @@ app.get('/movie/:id/', async (req, res) => {
   if (!item) {
     return res.status(404).send('Movie not found');
   }
-
-  // Map the genre IDs to their names and create an array of genre names
-  const genreNames = item.genres.map(genre => genre.name);
-
-  // Add the genre names array to the item object
-  item.genre_names = genreNames;
-
-  // Render the movie details template with the movie data and genre names
-  return res.send(renderTemplate('server/views/detail.liquid', { title: item.title, item }));
+  return res.send(renderTemplate('server/views/detail.liquid', {
+    title: `Detail page for ${id}`,
+    item: item
+  }));
 });
 
 
