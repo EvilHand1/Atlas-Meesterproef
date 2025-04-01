@@ -1,10 +1,38 @@
+.grid__item {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
 .card {
   width: 100%;
   max-width: 300px;
-}
+  display: grid;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 100%;;
 
-.card__image {
-  width: 100%;
-  height: auto;
-  margin-top: 1rem;
+  .card__image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+        scale: 1.05;
+    }
+  }
+
+  h2 {
+    color: #000;
+  }
+
+  *:not(.card__image) {
+    padding: 10px;
+    margin: 0;
+  }
 }

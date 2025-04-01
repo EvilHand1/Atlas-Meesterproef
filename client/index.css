@@ -5,16 +5,21 @@
 /*.layout and view styling */
 @import '../server/layouts/base.css';
 @import '../server/views/index.css';
+@import '../server/views/details.css';
 
 /* component styling */
 @import '../server/components/card/card.css';
 
+
 body {
   color: black;
-  max-width: 1440px;
   margin: 0 auto;
 }
 
 main {
   padding: 1rem;
+}
+
+.container {
+  max-width: 1440px;
 }

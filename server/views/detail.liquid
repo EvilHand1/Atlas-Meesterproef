@@ -1,6 +1,50 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<h1 class="h1">{{ item.name }}</h1>
-<img src="{{ item.image.src }}" alt="{{ item.image.alt }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
+<section class="movieDetails">
+    <div class="detailsGrid">
+        <div class="movieDetails__header">
+            <h1 class="h1">{{ item.title }}</h1>
+        </div>
+
+        <div class="movieDetails__image">
+            <img src="https://image.tmdb.org/t/p/original{{ item.poster_path }}" alt="{{ item.title }}" />
+        </div>
+
+        <div class="movieDetails__info">
+            <h3>Description</h3>
+            <p>{{ item.overview }}</p>
+
+            <hr />
+
+            <h3>Info</h3>
+            <p><b>Release Date:</b> {{ item.release_date }}</p>
+
+            {% assign full_stars = item.vote_average | divided_by: 2 | floor %}
+            {% assign half_star = item.vote_average | modulo: 2 %}
+            {% assign empty_stars = 5 | minus: full_stars | minus: half_star %}
+
+            <p class="rating">
+                <b>Rating:</b> 
+                {% for i in (1..full_stars) %}
+                     <i class="fas fa-star"></i>
+                {% endfor %}
+                {% if half_star > 0 %}
+                    <i class="fas fa-star-half-alt"></i>
+                {% endif %}
+                {% for i in (1..empty_stars) %}
+                    <i class="far fa-star"></i>
+                {% endfor %}
+                ({{ item.vote_count }})
+            </p>
+
+            <b>Genres:</b> 
+                <ul class="genres">
+                {% for genre in item.genre_names %}
+                    <li>{{ genre }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
 {% endblock %}

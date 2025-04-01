@@ -1,0 +1,64 @@
+.movieDetails {
+    .detailsGrid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 1em;
+
+        .movieDetails__header {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .movieDetails__image {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        .movieDetails__info {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: auto;
+
+            .movieDetails__header {
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            .movieDetails__image {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .movieDetails__info {
+                grid-column: 2;
+                grid-row: 2;
+            }
+        }
+    }
+
+    .movieDetails__info {
+        h3 {
+            margin-top: 0;
+        }
+        
+        .rating i {
+            color: #1db954;
+        }
+
+        .genres {
+            padding: 0 1em;
+            margin: 0;
+            list-style: initial;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

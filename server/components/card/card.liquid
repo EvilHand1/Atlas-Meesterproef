@@ -1,4 +1,9 @@
-<div class="card">
-  <h2 class="h2">{{ item.name }}</h2>
-  <img class="card__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
-</div>
+<article class="card">
+  <img class="card__image" 
+       src="{% if item.poster_path %}https://image.tmdb.org/t/p/original{{ item.poster_path }}
+       {% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc4ydgp0nVX122uVDmQw26huqCUk1NChzWcg&s{% endif %}" 
+       alt="{{ item.title }}" 
+       title="{{ item.title }}" 
+       loading="lazy"/>
+  <h2 class="h2">{{ item.title }}</h2>
+</article>

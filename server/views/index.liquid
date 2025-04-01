@@ -4,14 +4,60 @@
 
 <h1 class="h1">{{ title }}</h1>
 
+<section class="filters">
+  <form method="GET" action="/">
+    <!-- Genre Filter -->
+    <label for="genre">Genre:</label>
+
+    <!-- Genre Dropdown -->
+    <select name="genre" id="genre">
+      <option value="">Alle genres</option>
+      {% for genre in genre_names %}
+        <option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>
+          {{ genre.name }}
+        </option>
+      {% endfor %}
+    </select>
+    
+    <!-- Sort Filter -->
+    <label for="sort">Sorteren op:</label>
+    <select name="sort" id="sort">
+      <option value="popularity.desc" {% if sort == 'popularity.desc' %}selected{% endif %}>Populair</option>
+      <option value="release_date.desc" {% if sort == 'release_date.desc' %}selected{% endif %}>Nieuwste</option>
+      <option value="vote_average.desc" {% if sort == 'vote_average.desc' %}selected{% endif %}>Hoogste beoordeling</option>
+    </select>
+
+    <!-- Submit Button -->
+    <button type="submit"><i class="fa-solid fa-filter"></i></button>
+  </form>
+</section>
+
+<aside>
+
+</aside>
+
+<!-- Movie List -->
 <ul class="grid">
   {% for item in items %}
-    <li>
-      <a href="/plant/{{ item.id }}">
+    <li class="grid__item">
+      <a href="/movie/{{ item.id }}">
         {% render 'server/components/card/card.liquid', item: item %}
       </a>
     </li>
   {% endfor %}
 </ul>
+
+<!-- Pagination -->
+<section class="pagination">
+  {% if page > 1 %}
+    <a href="/?page={{ page | minus: 1 }}&genre={{ selected_genre }}&sort={{ sort }}" role="button" class="pagination__link">Vorige</a>
+  {% endif %}
+
+  <span class="pagination__current">Pagina {{ page }}</span>
+
+  {% if page < total_pages %}
+    <a href="/?page={{ page | plus: 1 }}&genre={{ selected_genre }}&sort={{ sort }}" role="button" class="pagination__link">Volgende</a>
+  {% endif %}
+</section>
 
 {% endblock %}

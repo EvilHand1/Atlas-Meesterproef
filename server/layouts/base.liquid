@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% block head %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>{{ title }}</title>
   {% endblock %}
   {% if NODE_ENV == "development" %}
@@ -18,13 +19,45 @@
 
 <body>
   <header>
-    Deze header staat op elke pagina
+    <section class="topbar">
+      <div class="container">
+        <p>
+          <a href="/">Tymo's Movie App</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="main">
+      <div class="container">
+        <a href="/">
+          <img src="#" width="100" height="50" />
+        </a>
+
+        <div class="search">
+          <input type="search" placeholder="Zoek een film..." aria-label="Zoek een film..." />
+          <button type="submit">Zoek <i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+    </section>
   </header>
   <main>
-    {% block content %}{% endblock %}
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
   </main>
   <footer>
-    Deze footer staat op elke pagina
+    <section class="main">
+      <div class="container">
+        Deze footer staat op elke pagina
+      </div>
+    </section>
+    
+    <section class="footerBottom">
+      <div class="container">
+        <p>All rights reserved &copy; {{ "now" | date: "%Y" }} <a href="/">Tymo's Movie App</a></p>
+      </div>
+    </section>
+    
   </footer>
 </body>
 </html>
