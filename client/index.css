@@ -1,6 +1,7 @@
 /* global styles */
 @import 'reset.css';
-@import "typography.css";
+@import 'typography.css';
+@import 'fonts.css';
 
 /*.layout and view styling */
 @import '../server/layouts/base.css';
@@ -10,10 +11,14 @@
 /* component styling */
 @import '../server/components/card/card.css';
 
-
 body {
   color: black;
   margin: 0 auto;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
 }
 
 main {

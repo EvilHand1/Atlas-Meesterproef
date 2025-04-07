@@ -41,7 +41,7 @@ async function fetchMovieData(page = 1, sort = 'popularity.desc', selected_genre
     return data;
   } catch (error) {
     console.error('Error fetching movie data:', error);
-    return { results: [], total_pages: 1 }; // Default empty data if error occurs
+    return { results: [], total_pages: 1 };
   }
 }
 
@@ -83,8 +83,6 @@ app.get('/', async (req, res) => {
   }
 });
 
-
-
 // Route for handling movie details page
 app.get('/movie/:id/', async (req, res) => {
   const id = req.params.id;
@@ -94,6 +92,8 @@ app.get('/movie/:id/', async (req, res) => {
   const response = await fetch(movieDetailsUrl);
   const item = await response.json();
 
+  console.log(item);
+
   if (!item) {
     return res.status(404).send('Movie not found');
   }
@@ -102,8 +102,6 @@ app.get('/movie/:id/', async (req, res) => {
     item: item
   }));
 });
-
-
 
 // Function to render the Liquid template
 const renderTemplate = (template, data) => {

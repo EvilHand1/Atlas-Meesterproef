@@ -5,6 +5,7 @@
     <div class="detailsGrid">
         <div class="movieDetails__header">
             <h1 class="h1">{{ item.title }}</h1>
+            <p>{{ item.tagline }}</p>
         </div>
 
         <div class="movieDetails__image">
@@ -15,17 +16,24 @@
             <h3>Description</h3>
             <p>{{ item.overview }}</p>
 
+            {% if item.homepage %}
+                <p><a href="{{item.homepage}}" target="_blank">{{item.homepage}}</a></p>
+            {% endif %}
+
             <hr />
 
             <h3>Info</h3>
-            <p><b>Release Date:</b> {{ item.release_date }}</p>
+            <p>
+                <b>Release Date:</b>
+                {{ item.release_date }}
+             </p>
 
             {% assign full_stars = item.vote_average | divided_by: 2 | floor %}
             {% assign half_star = item.vote_average | modulo: 2 %}
             {% assign empty_stars = 5 | minus: full_stars | minus: half_star %}
 
             <p class="rating">
-                <b>Rating:</b> 
+                <b>Rating:</b>
                 {% for i in (1..full_stars) %}
                      <i class="fas fa-star"></i>
                 {% endfor %}
@@ -40,10 +48,29 @@
 
             <b>Genres:</b> 
                 <ul class="genres">
-                {% for genre in item.genre_names %}
-                    <li>{{ genre }}</li>
+                {% for genre in item.genres %}
+                    <li>{{ genre.name }}</li>
                 {% endfor %}
             </ul>
+        </div>
+
+        <div class="movieDetails__extra">
+            {% if item.production_companies %}
+                <h2>Production company's</h2>
+                <div class="companys">
+                    {% for company in item.production_companies %}
+                        <div class="company">
+                            {% if company.logo_path %}
+                                <img src="https://image.tmdb.org/t/p/original{{ company.logo_path }}" alt="{{ company.name }}" width="50" />
+                            {% else %}
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc4ydgp0nVX122uVDmQw26huqCUk1NChzWcg&s" alt="{{ company.name }}" width="50" />
+                            {% endif %}
+                            <p>{{ company.name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
         </div>
     </div>
 </section>
