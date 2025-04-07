@@ -4,28 +4,14 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
-const data = {
-  'beemdkroon': {
-    id: 'beemdkroon',
-    name: 'Beemdkroon',
-    image: {
-      src: 'https://i.pinimg.com/736x/09/0a/9c/090a9c238e1c290bb580a4ebe265134d.jpg',
-      alt: 'Beemdkroon',
-      width: 695,
-      height: 1080,
-    }
-  },
-  'wilde-peen': {
-    id: 'wilde-peen',
-    name: 'Wilde Peen',
-    image: {
-      src: 'https://mens-en-gezondheid.infonu.nl/artikel-fotos/tom008/4251914036.jpg',
-      alt: 'Wilde Peen',
-      width: 418,
-      height: 600,
-    }
-  }
-}
+// import { createClient } from 'pexels';
+
+const apiKey = process.env.API_KEY
+// const client = createClient(apiKey);
+
+const apiUrl='https://api.unsplash.com/photos/?client_id='+apiKey
+
+console.log(apiUrl)
 
 const engine = new Liquid({
   extname: '.liquid',
@@ -34,21 +20,30 @@ const engine = new Liquid({
 const app = new App();
 
 app
-  .use(logger())
-  .use('/', sirv('dist'))
-  .listen(3000, () => console.log('Server available on http://localhost:3000'));
+.use(logger())
+.use('/', sirv('dist'))
+.listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 app.get('/', async (req, res) => {
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', items: Object.values(data) }));
+  const data = await fetch(apiUrl)
+  const jsonData = await data.json()
+  console.log(jsonData)
+  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', photos: jsonData }));
 });
 
-app.get('/plant/:id/', async (req, res) => {
+app.get('/users/:id/', async (req, res) => {
   const id = req.params.id;
-  const item = data[id];
-  if (!item) {
+  const usersAPIEndpoint = 'https://api.unsplash.com/users/' + id +'?client_id='+apiKey
+  console.log(usersAPIEndpoint)
+  const profile = data[id];
+
+  const data = await fetch(usersAPIEndpoint)
+  const jsonDataId = await data.json()
+  console.log(jsonDataId)
+  if (!profile) {
     return res.status(404).send('Not found');
   }
-  return res.send(renderTemplate('server/views/detail.liquid', { title: `Detail page for ${id}`, item }));
+  return res.send(renderTemplate('server/views/index.liquid', { title: 'UserProfile', profile: jsonDataId }));
 });
 
 const renderTemplate = (template, data) => {

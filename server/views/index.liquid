@@ -5,10 +5,27 @@
 <h1 class="h1">{{ title }}</h1>
 
 <ul class="grid">
-  {% for item in items %}
+  {% for photo in photos %}
     <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
+      <a href="/photo/{{ photo.id }}">
+        <img src="{{ photo.urls.small_s3 }}" alt="{{ photo.alt_description }}" class="card__image">
+        <div>
+          <div>
+            <img src="{{ photo.user.profile_image.small }}" alt="userprofile">
+            <p>
+              <a href="/users/{{ photo.user.username }}">
+              {{ photo.user.name }}
+              </a>
+            </p>  
+          </div>
+          <p>{{ photo.user.bio }}</p>
+          <p>📍{{ photo.user.location }}</p>
+          <p>Meer:</p>
+          <ul>
+            <li></li>
+            <li></li>
+            </ul>
+        </div>
       </a>
     </li>
   {% endfor %}

@@ -10,6 +10,7 @@
     <script type="module" src="http://localhost:5173/client/index.js" defer></script>
   {% else %}
     <link rel="stylesheet" href="/index.css">
+    <link rel="icon" type="image/x-icon" href="/images/logo.svg">
     <script src="/index.js" defer></script>
   {% endif %}
   {% block styles %}{% endblock %}
@@ -18,7 +19,7 @@
 
 <body>
   <header>
-    Deze header staat op elke pagina
+    <img src="../images/VISora.svg" alt="">
   </header>
   <main>
     {% block content %}{% endblock %}
