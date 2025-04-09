@@ -4,48 +4,25 @@ import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
 
-// import { createClient } from 'pexels';
+// Haal de API-sleutel op uit .env
+const apiKey = process.env.API_KEY;
 
-const apiKey = process.env.API_KEY
-// const client = createClient(apiKey);
+const apiUrl = 'https://api.unsplash.com/photos?client_id=' + apiKey + '&per_page=30&order_by=latest';
 
-const apiUrl='https://api.unsplash.com/photos/?client_id='+apiKey
-
-console.log(apiUrl)
-
+// Maak een Liquid Engine voor rendering van templates
 const engine = new Liquid({
   extname: '.liquid',
 });
 
 const app = new App();
 
+// Logger en statische bestanden
 app
-.use(logger())
-.use('/', sirv('dist'))
-.listen(3000, () => console.log('Server available on http://localhost:3000'));
+  .use(logger())
+  .use('/', sirv(process.env.NODE_ENV == 'development' ? 'client' : 'dist')) // Zorg ervoor dat 'dist' de juiste map is
+  .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
-app.get('/', async (req, res) => {
-  const data = await fetch(apiUrl)
-  const jsonData = await data.json()
-  console.log(jsonData)
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', photos: jsonData }));
-});
-
-app.get('/users/:id/', async (req, res) => {
-  const id = req.params.id;
-  const usersAPIEndpoint = 'https://api.unsplash.com/users/' + id +'?client_id='+apiKey
-  console.log(usersAPIEndpoint)
-  const profile = data[id];
-
-  const data = await fetch(usersAPIEndpoint)
-  const jsonDataId = await data.json()
-  console.log(jsonDataId)
-  if (!profile) {
-    return res.status(404).send('Not found');
-  }
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'UserProfile', profile: jsonDataId }));
-});
-
+// Render functie voor Liquid templates
 const renderTemplate = (template, data) => {
   const templateData = {
     NODE_ENV: process.env.NODE_ENV || 'production',
@@ -54,4 +31,33 @@ const renderTemplate = (template, data) => {
 
   return engine.renderFileSync(template, templateData);
 };
+
+// Hoofdpagina route
+app.get('/', async (req, res) => {
+  const response = await fetch(apiUrl); // Gebruik de ingebouwde fetch van Node.js
+  const jsonData = await response.json();
+
+  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', photos: jsonData }));
+});
+
+// Gebruikerspagina route
+app.get('/users/:username', async (req, res) => {
+  const username = req.params.username;
+  const usersAPIEndpoint = `https://api.unsplash.com/users/${username}?client_id=${apiKey}`;
+  const userPhotosAPIEndpoint = `https://api.unsplash.com/users/${username}/photos?client_id=${apiKey}`;
+
+  const userResponse = await fetch(usersAPIEndpoint);
+  const userData = await userResponse.json();
+  const photosResponse = await fetch(userPhotosAPIEndpoint);
+  const userPhotos = await photosResponse.json();
+
+  const fullUserData = {
+    title: `${userData.name}'s Profile`,
+    profile: userData,
+    photos: userPhotos,
+  };
+
+  return res.send(renderTemplate('server/views/detail.liquid', fullUserData));
+});
+
 

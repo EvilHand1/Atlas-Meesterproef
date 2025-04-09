@@ -1,6 +1,33 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<h1 class="h1">{{ item.name }}</h1>
-<img src="{{ item.image.src }}" alt="{{ item.image.alt }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
+<div class="detailMain">
+  <a href="/" class="back">back to overview</a>
+  
+  <section> 
+    <h1 class="h1">{{ profile.name }}</h1>
+    <img src="{{ profile.profile_image.large }}" alt="{{ profile.name }}'s profile image" id="profile__image">
+    <p>{{ profile.bio }}</p>
+    <div>
+      <p> 📍 {{ profile.location}}</p>
+      <p>
+        <a href="{{ profile.portfolio_url}}" target="_blank"> {{ profile.portfolio_url}}</a>
+      </p>
+    </div>
+  </section>
+  
+    <section>
+      <h3>Photos by {{ profile.name }}</h3>
+    <ul class="grid" id="photoContainer">
+      {% for photo in photos %}
+        <li>
+          <img src="{{ photo.urls.regular }}" alt="{{ photo.alt_description }}" id="card__image">
+        </li>
+      {% endfor %}
+    </ul>
+    </section>
+    </div>
+  
+
 {% endblock %}
+

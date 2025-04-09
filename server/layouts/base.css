@@ -1,5 +1,13 @@
 header {
-  padding: 1rem;
+ height: 5em;
+ padding: 1em;
+display: flex;
+justify-content: end;
+}
+
+header img{
+  height: 5em;
+
 }
 
 footer {
