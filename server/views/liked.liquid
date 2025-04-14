@@ -1,0 +1,17 @@
+{% layout "server/layouts/base.liquid" %}
+
+{% block content %}
+<h1>Gelikete Foto's</h1>
+<div id="foto-{{ photo.id }}">
+<ul id="likedPhotosContainer">
+  {% for photo in photos %}
+  <li>
+    <a href="/users/{{ photo.user.username }}">
+          <img src="${photo.src}" alt="${photo.alt}">
+          <p>${photo.name}</p>
+        </a>
+  </li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
