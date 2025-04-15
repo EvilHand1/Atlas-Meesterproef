@@ -1,13 +1,12 @@
 :root {
   --text: rgba(35, 31, 36, 1);
-  --backgorund: rgb(251, 240, 255);
-  --wit: rgb(221, 219, 231);
+  --wit: rgb(251, 240, 255);
   --detail: rgba(187, 175, 205, 0.8253895308123249);
 }
 
 body {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
-  color: rgb(212, 212, 212);
+  color: var(--wit);
   background: rgb(187, 175, 205);
   background: rgb(187, 175, 205);
   background: -moz-linear-gradient(90deg, rgba(187, 175, 205, 0.8253895308123249) 0%, rgba(71, 56, 76, 1) 54%, rgba(35, 31, 36, 1) 100%);
@@ -34,6 +33,7 @@ main {
 #photoContainer li {
   width: min(17em, 20%);
   flex-grow: 1;
+  /* max-height:100vh; */
 
   &.landscape {
     width: max(17em, 40%);
@@ -44,7 +44,9 @@ main {
   width: 100%;
   height: 100%;
   border-radius: 1em;
+  object-fit: cover;
 }
+
 
 #photoContainer button {
   background-color: transparent;
@@ -55,9 +57,18 @@ main {
 dialog {
   border-radius: .5em;
   width: 90vw;
-  background-color: var(--backgorund);
+  background-color: var(--wit);
   border: none;
   padding: 2em;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Als hij zichtbaar wordt */
+dialog[open] {
+  opacity: 1;
+  transform: scale(1);
 }
 
 #moreDetailsOver {
@@ -72,10 +83,11 @@ dialog {
 }
 
 .dialog-image {
-  max-width: 60%;
+  max-width: 50%;
   max-height: 70vh;
   aspect-ratio: var(--aspect-ratio);
 }
+
 #moreDetailsOver img {
   border-radius: 0;
   width: 100%;
@@ -120,7 +132,7 @@ dialog {
 
 }
 
-.details-content p:first-of-type {
+.details-content > p:first-of-type {
   margin: 0;
   font-weight: 100;
 }
@@ -133,6 +145,19 @@ dialog {
   font-style: italic;
   hyphens: auto;
 }
+.details-content div{
+  border-radius: .8em;
+  width: 20em;
+  padding: 1em;
+  align-items: center;
+  justify-content: center;
+  box-shadow: .1em .1em 1em var(--detail);
+}
+.details-content div p{
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 
 .details-content ul {
   margin: 0.5rem 0;
@@ -187,84 +212,111 @@ dialog {
   transition: fill 1s ease, stroke 1s ease;
 }
 
+/* ////////////detail pagina//////////// */
+
+.detailMain{
+  width: 90%;
+  margin: auto;
+}
 .back {
   text-decoration: none;
   font-weight: bold;
-  color: var(--backgorund);
-
+  color: var(--wit);
+ 
 }
 
 .back::before {
   content: "←";
 }
 
-section:nth-of-type(1) {
-  display: grid;
-  grid-template-columns: max-content 3fr;
-  grid-template-rows: 2em max-content 3em;
-  gap: 1em 2em;
-  margin-top: 3em;
-  margin-bottom: 4em;
-}
-
-
-section:nth-of-type(1) img {
-  grid-row-start: 1;
-  grid-row-end: -1;
-  grid-column: 1;
-  border-radius: 50%;
-  height: 10em;
-}
-
-
-section:nth-of-type(1) h1 {
-  grid-row: 1;
-  grid-column: 2;
-  align-self: end;
-  margin: 0;
-
-}
-
-section:nth-of-type(1)>p {
-  grid-row: 2;
-  grid-column: 2;
-  font-weight: 100;
-}
-
-section:nth-of-type(1) div {
-  grid-row: 3;
-  grid-column: 2;
+.detailMain section:nth-of-type(1){
   display: flex;
+  flex-direction: row;
+  align-items: start;
+  padding: 1rem;
+  position: relative;
+  gap: 2em;
+  width: 85%;
+}
+
+.detailMain section:nth-of-type(1) img{
+  flex-shrink:0 ;
+ height: 15em;
+  margin-bottom: 1em;
+  border-radius: 50%;
+  align-self: center;
+}
+.detailMain section:nth-of-type(1) h1{
+  font-size: 2.5em;
+  color: var(--detail);
+
+}
+
+.detailMain section:nth-of-type(1)> div> p{
+  /* padding-left: 1em; */
+  font-size: 1.3em;
+  line-height: 1.2em;
+}
+.detailMain section:nth-of-type(1) p:nth-of-type(1){
+  font-weight: 100;
+  margin-bottom: 1em;
+
+}
+
+.detailMain section:nth-of-type(1)> div> p:nth-of-type(2){
+  font-weight: 500;
+  margin-bottom: .5em;
+  
+}
+.detailMain section:nth-of-type(1) ul{
+  display: flex;
+  list-style: none;
   gap: 1em;
-  width: 50%;
-
+  margin: 1.5em 0;
 }
 
-section:nth-of-type(1) div p:first-of-type {
-  font-size: .9em;
-  font-weight: bold;
-}
-
-section:nth-of-type(1) div p:last-of-type {
-  font-size: .9em;
-}
-
-
-section:nth-of-type(1) div a {
-  text-decoration: wavy;
-  color: var(--backgorund);
-}
-
-section:nth-of-type(1) div a:visited {
-  color: var(--backgorund);
-}
-
-section:nth-of-type(1) div a:focus {
+.detailMain section:nth-of-type(1) ul li{
+  font-size: 1.1em;
   background-color: var(--detail);
-  padding: .3em;
-
+  padding: .7em;
+  border-radius: .5em;
 }
 
+.detailMain section:nth-of-type(1) p:nth-of-type(3){
+  font-weight: 500;
+  
+}
+
+.detailMain a {
+  color: var(--wit);
+}
+
+.detailMain  a:visited {
+  color: var(--wit);
+}
+
+button:focus-visible{
+  border-radius: .7em;
+  outline: .5em solid var(--wit);
+}
+a:focus-visible { 
+  border-radius: .2em;
+  outline: .3em solid var(--detail);
+
+}
+.detailMain a:focus-visible {
+  /* background-color: var(--detail); */
+  padding: .2em .7em;
+  border-radius: .2em;
+  outline: .2em solid var(--wit);
+
+}
+.detailMain section:nth-of-type(2) h3{
+font-size: 2em;
+margin: 1em 0;
+font-weight: 700;
+color: var(--detail);
+}
 footer ul {
   display: flex;
   list-style: none;
@@ -276,10 +328,75 @@ footer ul {
   padding: 1em 0;
 }
 
+/* /////////////////////////////liked pagina///////////////////// */
+
+.favorites{
+  font-size: 3em;
+  font-weight: 600;
+  margin-bottom: .5em;
+  color: var(--detail);
+}
+#likedPhotosContainer{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  align-items: stretch;
+}
+
+#likedPhotosContainer > li {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 1em;
+
+  width: min(12em, 10%);
+  flex-grow: 1;
+ background-color: var(--detail);
+
+  &.landscape {
+    width: max(10em, 30%);
+  }
+}
+#likedPhotosContainer a{
+  text-decoration: none; 
+  color: var(--text);
+}
+#likedPhotosContainer a p:first-of-type{
+  font-size:1.4em;
+  margin: 1em 0;
+  color: var(--text);
+}
+#likedPhotosContainer a p:last-of-type{
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 1em ;
+  hyphens: auto;
+
+  color: var(--wit);
+}
+
+#likedPhotosContainer li img{
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+  border-radius: 1em;
+/* 
+  max-width: 100%;
+  max-height: 70vh; */
+  aspect-ratio: var(--aspect-ratio);
+}
+
+
+
 
 @media (max-width:600px) {
+  #photoContainer{
+    gap: 1em;
+  }
   dialog {
     width: 85vw;
+    height:80vh;
+    padding: 1em;
   }
 
   #moreDetailsOver {
@@ -289,18 +406,12 @@ footer ul {
     padding: 0;
     width: 85vw;
     gap: 0;
-  }
-
-  #moreDetailsOver img {
-    height: fit-content;
-    width: 100%;
-    object-fit: contain;
-  }
+  } 
 
   #moreDetailsOver>button:nth-of-type(1) {
-    top: 4em;
-    right: 1em;
     position: fixed;
+    top: 1em;
+    right: 1em;
   }
 
   .details-content h2 {
@@ -324,65 +435,74 @@ footer ul {
   }
 
   .details-content button {
-    position: fixed;
-    bottom: 10em;
-    right: 2em;
+    bottom: 40%;
+    right: .5em;
   }
-
-
+  .dialog-image {
+    max-width: 100%;
+    
+    aspect-ratio: var(--aspect-ratio);
+  }
+  main{
+    margin: 1em;
+  }
+  .detailMain{
+    margin: 0;
+  }
 }
 
-@media (max-width:1200px) {
-  dialog {
-    width: 85vw;
-  }
 
-  #moreDetailsOver:has(li.landscape) #moreDetailsOver{
+@media (max-width:900px) {
+.landscape #moreDetailsOver {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     position: relative;
     padding: 0;
-    width: 85vw;
+    /* width: 85vw; */
     gap: 0;
+  } 
+  .landscape .dialog-image{
+    max-width: 80%;
+    align-self: center;
   }
 
-  #moreDetailsOver img {
-    height: fit-content;
-    width: 100%;
-    object-fit: contain;
+  #moreDetailsOver p:nth-of-type(2){
+    font-size: 2.5em;
   }
 
-  #moreDetailsOver>button:nth-of-type(1) {
-    top: 4em;
-    right: 1em;
-    position: fixed;
+  .detailMain section:nth-of-type(1) img{
+   width: 10em;
+   height: 10em;
   }
 
-  .details-content h2 {
-    margin-top: .5em;
-    /* ruimte onder button */
-
+  .detailMain section:nth-of-type(1) h1{
+    font-size:1.5em ;
   }
-
-  .details-content p:nth-of-type(2) {
-    margin: .5em 0;
-    font-size: 3em;
-    width: 100%;
-    font-weight: 800;
-    color: var(--detail);
-    font-style: italic;
+  .detailMain section:nth-of-type(1)>div> p{
+    font-size:1.1em ;
   }
-
-  .details-content ul {
-    margin: 0.5rem 0;
-    padding-left: 0;
+  .detailMain ul{
+    max-width: 100%;
   }
+}
 
-  .details-content button {
-    position: fixed;
-    bottom: 10em;
-    right: 2em;
+@media (max-width:800px){
+  .detailMain section:nth-of-type(1){
+        flex-direction: column;
+        gap: .5em;
+        width: 95%;
   }
-
-
+  .detailMain section:nth-of-type(1) img {
+    align-self: start ;
+  }
+  .detailMain section:nth-of-type(1) div{
+    max-width: 100%;
+  }
+  .detailMain section:nth-of-type(1) div p a{
+   flex-wrap: wrap;
+   hyphens: auto;
+  }
+  .detailMain section:nth-of-type(1) ul{
+    flex-wrap: wrap;
+  }
 }

@@ -1,6 +1,7 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
+
 <ul id="photoContainer">
   {% for photo in photos %}
   <li>
@@ -8,20 +9,18 @@
     <dialog id="foto-{{ photo.id }}">
       <form class="moreDetails" id="moreDetailsOver" method="dialog">
         <button type="submit" aria-label="Close modal">×</button>
-
         <div class="dialog-image" style="--aspect-ratio: {{ photo.width }} / {{ photo.height }};">
           <img src="{{ photo.urls.full }}" alt="{{ photo.alt_description }}" id="card__image">
         </div>
-
         <div class="details-content">
           <a href="/users/{{ photo.user.username }}">
             <h2>{{ photo.user.name }}</h2>
-          </a>
           <p>📍{{ photo.user.location }}</p>
           <p>{{ photo.alt_description }}</p>
-          {% comment %} <ul>
-            <li></li>
-          </ul> {% endcomment %}
+          </a>
+          <div style="background-color:{{ photo.color}}" id="color-info-{{ photo.id }}">
+            <p id="color-text-{{ photo.id }}" >{{ photo.color }}</p>
+          </div>
           <button class="likeButton" type="button" data-photo-id="{{ photo.id }}" aria-label="Like photo">
             <svg xmlns="http://www.w3.org/2000/svg" class="PpK6d" viewBox="0 0 24 24" version="1.1" aria-hidden="false"
               fill="none" stroke="rgba(35, 31, 36, 1)" stroke-width="1">
@@ -48,24 +47,11 @@
 
 
     <!-- Button om het dialoogvenster te openen -->
-    <button onclick="document.getElementById('foto-{{ photo.id }}').showModal()">
+    <button  onclick="document.getElementById('foto-{{ photo.id }}').showModal()">
       <img src="{{ photo.urls.regular}}" alt="{{ photo.alt_description }}" id="card__image">
     </button>
   </li>
   {% endfor %}
 </ul>
-
-{% comment %} <ul class="grid" id="photoContainer">
-  {% for photo in photos %}
-  <li>
-    <a href="/users/{{ photo.user.username }}">
-      <img src="{{ photo.urls.small_s3 }}" alt="{{ photo.alt_description }}" id="card__image">
-    </a>
-    <dialog>
-
-    </dialog>
-  </li>
-  {% endfor %}
-</ul> {% endcomment %}
 
 {% endblock %}

@@ -19,13 +19,12 @@ const app = new App();
 // Logger en statische bestanden
 app
   .use(logger())
-  .use('/', sirv(process.env.NODE_ENV == 'development' ? 'client' : 'dist')) // Zorg ervoor dat 'dist' de juiste map is
+  .use('/', sirv('dist')) // Zorg ervoor dat 'dist' de juiste map is
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 // Render functie voor Liquid templates
 const renderTemplate = (template, data) => {
   const templateData = {
-    NODE_ENV: process.env.NODE_ENV || 'production',
     ...data
   };
 
@@ -58,6 +57,23 @@ app.get('/users/:username', async (req, res) => {
   };
 
   return res.send(renderTemplate('server/views/detail.liquid', fullUserData));
+});
+
+app.get('/favorites', async (req, res) => {
+  const ids = req.query.ids?.split(',') || [];
+
+  if (ids.length === 0) {
+    return res.send(renderTemplate('server/views/liked.liquid', { title: 'Favorieten', likes: [] }));
+  }
+
+  // Haal individuele foto's op via Unsplash API
+  const photoPromises = ids.map(id =>
+    fetch(`https://api.unsplash.com/photos/${id}?client_id=${apiKey}`).then(r => r.json())
+  );
+
+  const likedPhotos = await Promise.all(photoPromises);
+
+  return res.send(renderTemplate('server/views/liked.liquid', { title: 'Favorieten', likes: likedPhotos }));
 });
 
 

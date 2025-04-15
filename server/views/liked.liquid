@@ -1,17 +1,17 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<h1>Gelikete Foto's</h1>
-<div id="foto-{{ photo.id }}">
-<ul id="likedPhotosContainer">
-  {% for photo in photos %}
-  <li>
-    <a href="/users/{{ photo.user.username }}">
-          <img src="${photo.src}" alt="${photo.alt}">
-          <p>${photo.name}</p>
-        </a>
-  </li>
-{% endfor %}
-</ul>
-</div>
+  <h1 class="favorites"> your Favorites</h1>
+  <ul id="likedPhotosContainer">
+    {% if likes.size > 0 %}
+      <script>console.log({{likes.size}});</script>
+      {% for like in likes %}
+        <li>
+        {% render '../components/photo/photo.liquid', like: like %}
+        </li>
+      {% endfor %}
+    {% else %}
+      <li>Je hebt nog geen gelikete foto's!</li>
+    {% endif %}
+  </ul>
 {% endblock %}

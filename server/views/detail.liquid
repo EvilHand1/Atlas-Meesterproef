@@ -2,18 +2,26 @@
 
 {% block content %}
 <div class="detailMain">
-  <a href="/" class="back">back to overview</a>
+  {% comment %} <a href="/" class="back">back to overview</a> {% endcomment %}
   
   <section> 
-    <h1 class="h1">{{ profile.name }}</h1>
     <img src="{{ profile.profile_image.large }}" alt="{{ profile.name }}'s profile image" id="profile__image">
-    <p>{{ profile.bio }}</p>
     <div>
+      <h1 class="h1">{{ profile.name }}</h1>
       <p> 📍 {{ profile.location}}</p>
+      <p>{{ profile.bio }}</p>
       <p>
+        Website:
         <a href="{{ profile.portfolio_url}}" target="_blank"> {{ profile.portfolio_url}}</a>
       </p>
+      <ul>
+      {% for tag in profile.tags.custom %}
+        <li>{{ tag.title }}</li>
+      {% endfor %}
+      </ul>
+     
     </div>
+    
   </section>
   
     <section>
