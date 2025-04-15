@@ -18,6 +18,7 @@
   "dependencies": {
     "@tinyhttp/app": "^2.5.2",
     "@tinyhttp/logger": "^2.1.0",
+    "body-parser": "^2.2.0",
     "chokidar-cli": "^3.0.0",
     "cpy-cli": "^5.0.0",
     "dotenv": "^16.4.7",

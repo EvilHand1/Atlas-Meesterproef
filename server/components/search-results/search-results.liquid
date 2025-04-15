@@ -1,0 +1,9 @@
+<ul class="grid">
+  {% for movie in results %}
+    <li>
+      <a href="/plant/{{ item.id }}">
+        {% render 'server/components/card/card.liquid', movie: movie %}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

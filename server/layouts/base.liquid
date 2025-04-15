@@ -13,7 +13,18 @@
 
 <body>
   <header>
-    Deze header staat op elke pagina
+    <form method="get" action="/search/" data-search-form>
+      <label for="search">Zoeken</label>
+      <input type="search" id="search" name="q" value="{{query}}" data-search-input />
+
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        <option value="">Alle</option>
+        <option value="1">Romcom</option>
+      </select>
+
+      <button type="submit">Zoeken</button>
+    </form>
   </header>
   <main>
     {% block content %}{% endblock %}

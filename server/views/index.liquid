@@ -5,13 +5,18 @@
 <h1 class="h1">{{ title }}</h1>
 
 <ul class="grid">
-  {% for item in items %}
+  {% for movie in movies %}
     <li>
       <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
+        {% render 'server/components/card/card.liquid', movie: movie %}
       </a>
     </li>
   {% endfor %}
 </ul>
+
+{% if success %}
+  <p>Succesvol opgeslagen</p>
+{% endif %}
+<p></p>
 
 {% endblock %}

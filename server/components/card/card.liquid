@@ -1,4 +1,7 @@
 <div class="card">
-  <h2 class="h2">{{ item.name }}</h2>
-  <img class="card__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
+  <h2 class="h2">{{ movie.original_title }}</h2>
+
+  <form method="post" action="/favourite">
+    <button type="submit" name="id" value="{{ movie.id }}" data-save-button="{{ movie.id }}">❤️</button>
+  </form>
 </div>
