@@ -4,12 +4,20 @@
 <section class="movieDetails">
     <div class="detailsGrid">
         <div class="movieDetails__header">
+            <button type="button" class="addToFavorites" data-id="{{ item.id }}">
+                <i class="fa-regular fa-heart"></i>
+            </button>
             <h1 class="h1">{{ item.title }}</h1>
             <p>{{ item.tagline }}</p>
         </div>
 
         <div class="movieDetails__image">
-            <img src="https://image.tmdb.org/t/p/original{{ item.poster_path }}" alt="{{ item.title }}" />
+            <img
+                id="movie_{{ item.id }}"	 
+                src="https://image.tmdb.org/t/p/original{{ item.poster_path }}"
+                title="{{ item.title }}" alt="{{ item.title }}"
+                style="view-transition-name: card__image_{{ item.id }}"
+                 />
         </div>
 
         <div class="movieDetails__info">

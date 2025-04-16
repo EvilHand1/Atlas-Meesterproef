@@ -12,19 +12,32 @@ header {
   background-color: #212121;
   color: #fff;
 
+  a {
+    color: #fff
+  }
+
   .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: #1db954;
     padding: 1em;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   .main .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1em;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media screen and (min-width: 768px) {
+      justify-content: space-between;
+    }
 
     .search {
       display: flex;

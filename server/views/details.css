@@ -67,10 +67,31 @@
         }
     }
 
-    .movieDetails__image img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 5px;
+    .movieDetails__header {
+        position: relative;
+
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 10;
+            background: none;
+            border: none;
+
+            i { color: #1db954; }
+
+            &:hover i.fa-regular {font-weight: 700; }
+            &:hover i.fa-solid { font-weight: 400; }
+        }
+        
+    }
+
+    .movieDetails__image {
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
     }
 
     .movieDetails__extra {

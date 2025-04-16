@@ -41,7 +41,6 @@ async function fetchMovieData(page = 1, sort = 'popularity.desc', selected_genre
     return data;
   } catch (error) {
     console.error('Error fetching movie data:', error);
-    return { results: [], total_pages: 1 };
   }
 }
 
@@ -57,11 +56,6 @@ app.get('/', async (req, res) => {
   try {
     const response = await fetch(apiUrl);
     const movieData = await response.json();
-
-    // Check if movieData is valid and contains results
-    if (!movieData.results) {
-      return res.status(500).send('Movie data is not available. Please try again later.');
-    }
 
     // Fetch genre names for the selected genre
     const genreResponse = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`);
@@ -79,7 +73,6 @@ app.get('/', async (req, res) => {
     }));
   } catch (error) {
     console.error('Error fetching movie data:', error);
-    return res.status(500).send('Error loading movies.');
   }
 });
 
@@ -100,6 +93,31 @@ app.get('/movie/:id/', async (req, res) => {
   return res.send(renderTemplate('server/views/detail.liquid', {
     title: `Detail page for ${id}`,
     item: item
+  }));
+});
+
+app.get('/favorites', async (req, res) => {
+  const ids = req.query.ids ? req.query.ids.split(',') : [];
+
+  if (!ids.length) {
+    return res.send(renderTemplate('server/views/favorites.liquid', {
+      title: 'Favorites',
+      items: []
+    }));
+  }
+
+  const items = [];
+
+  for (const id of ids) {
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
+    const response = await fetch(url);
+    const movie = await response.json();
+    items.push(movie);
+  }
+
+  return res.send(renderTemplate('server/views/favorites.liquid', {
+    title: 'Favorites',
+    items
   }));
 });
 

@@ -5,6 +5,8 @@
   {% block head %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/60177191?v=4&size=64">  
+
+  <link rel="expect">
   <title>{{ title }}</title>
 
   {% endblock %}
@@ -21,13 +23,15 @@
         <p>
           <a href="/">Tymo's Movie App</a>
         </p>
+
+        <button type="button" class="goToFavorites">Favorieten</button>
       </div>
     </section>
 
     <section class="main">
       <div class="container">
         <a href="/">
-          <img src="#" width="100" height="50" />
+          <img src="https://avatars.githubusercontent.com/u/60177191?v=4&size=64" width="100" height="50" />
         </a>
 
         <div class="search">
@@ -43,12 +47,6 @@
     </div>
   </main>
   <footer>
-    <section class="main">
-      <div class="container">
-        Deze footer staat op elke pagina
-      </div>
-    </section>
-    
     <section class="footerBottom">
       <div class="container">
         <p>All rights reserved &copy; {{ "now" | date: "%Y" }} <a href="/">Tymo's Movie App</a></p>

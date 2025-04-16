@@ -40,7 +40,7 @@
 <ul class="grid">
   {% for item in items %}
     <li class="grid__item">
-      <a href="/movie/{{ item.id }}">
+      <a href="/movie/{{ item.id }}" class="movie__link">
         {% render 'server/components/card/card.liquid', item: item %}
       </a>
     </li>

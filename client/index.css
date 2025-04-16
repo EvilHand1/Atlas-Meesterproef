@@ -11,6 +11,10 @@
 /* component styling */
 @import '../server/components/card/card.css';
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: black;
   margin: 0 auto;
@@ -28,3 +32,31 @@ main {
 .container {
   max-width: 1440px;
 }
+
+:root {
+  view-transition-name: root;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+html::view-transition {
+  /* Optional: custom styling */
+  animation-duration: 0.4s;
+}
+
+::view-transition-old(movie-*) {
+  opacity: 1;
+}
+
+::view-transition-new(movie-*) {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+

@@ -1,5 +1,5 @@
 <article class="card">
-  <img class="card__image" 
+  <img class="card__image" id="movie_{{ item.id }}" style="view-transition-name: movie_{{ item.id }}"
        src="{% if item.poster_path %}https://image.tmdb.org/t/p/original{{ item.poster_path }}
        {% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc4ydgp0nVX122uVDmQw26huqCUk1NChzWcg&s{% endif %}" 
        alt="{{ item.title }}" 
