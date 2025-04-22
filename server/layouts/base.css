@@ -35,13 +35,14 @@ header {
     flex-wrap: wrap;
     gap: 1rem;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 568px) {
       justify-content: space-between;
     }
 
     .search {
       display: flex;
       align-items: center;
+      margin-bottom: 0;
       gap: 0;
 
       input {
@@ -57,22 +58,20 @@ header {
   }
 }
 
-main {
-  
-}
+main {}
 
 footer {
-display: grid;
+  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   color: #fff;
-  
+
   .main {
     background-color: #b3b3b3;
   }
 
-  .footerBottom { 
-  background: #212121;
+  .footerBottom {
+    background: #212121;
 
     p {
       text-align: center;
@@ -89,7 +88,8 @@ display: grid;
   }
 }
 
-button, a[role="button"] {
+button,
+a[role="button"] {
   padding: 0.5rem 1rem;
   background-color: #1db954;
   color: #fff;
@@ -104,7 +104,8 @@ button, a[role="button"] {
   }
 }
 
-input, select {
+input,
+select {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;

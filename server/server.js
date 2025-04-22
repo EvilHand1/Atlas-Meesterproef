@@ -47,34 +47,44 @@ async function fetchMovieData(page = 1, sort = 'popularity.desc', selected_genre
 // Route for the home page
 app.get('/', async (req, res) => {
   const selectedGenre = req.query.genre ? parseInt(req.query.genre, 10) : "";
-  const page = req.query.page ? parseInt(req.query.page, 10) : 1; // Get current page, default to 1
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+  const sort = req.query.sort || 'popularity.desc';
+  const searchQuery = req.query.search;
 
-  // Get the selected genre name from the genreMap
-  const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&page=${page}&sort_by=${req.query.sort || 'popularity.desc'}&with_genres=${selectedGenre}`;
+  let apiUrl;
 
-  // Fetch movie data from the API
+  // Als search in de URL zit
+  if (searchQuery) {
+    // Gebruik de zoekendpoint van de API
+    apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=${page}&query=${encodeURIComponent(searchQuery)}`;
+  } else {
+    // Standaard ontdekking API
+    const genreQuery = selectedGenre ? `&with_genres=${selectedGenre}` : '';
+    apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&page=${page}&sort_by=${sort}${genreQuery}`;
+  }
+
   try {
     const response = await fetch(apiUrl);
     const movieData = await response.json();
 
-    // Fetch genre names for the selected genre
     const genreResponse = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`);
     const genreData = await genreResponse.json();
 
-    // Map the genre IDs to their names and create an array of genre names
     return res.send(renderTemplate('server/views/index.liquid', {
       title: 'Home',
       items: movieData.results,
       genre_names: genreData.genres,
       selected_genre: selectedGenre,
-      sort: req.query.sort || 'popularity.desc',
+      sort: sort,
       page: page,
-      total_pages: movieData.total_pages // Pass total pages
+      total_pages: movieData.total_pages,
+      search: searchQuery || ''
     }));
   } catch (error) {
     console.error('Error fetching movie data:', error);
   }
 });
+
 
 // Route for handling movie details page
 app.get('/movie/:id/', async (req, res) => {
@@ -96,9 +106,11 @@ app.get('/movie/:id/', async (req, res) => {
   }));
 });
 
+// Pad naar de favorieten pagina
 app.get('/favorites', async (req, res) => {
   const ids = req.query.ids ? req.query.ids.split(',') : [];
 
+  // Check of er geen favorieten zijn
   if (!ids.length) {
     return res.send(renderTemplate('server/views/favorites.liquid', {
       title: 'Favorites',
@@ -108,13 +120,17 @@ app.get('/favorites', async (req, res) => {
 
   const items = [];
 
+  // Haal de de details op van de films met de opgegeven ids
   for (const id of ids) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
     const response = await fetch(url);
     const movie = await response.json();
-    items.push(movie);
+
+    // voeg de films toe aan de items array
+    items.push(movie);  
   }
 
+  // Render de template met de opgehaalde films
   return res.send(renderTemplate('server/views/favorites.liquid', {
     title: 'Favorites',
     items

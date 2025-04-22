@@ -17,21 +17,6 @@ document.querySelectorAll('.card_image').forEach(card => {
   });
 });
 
-const favBtn = document.querySelector('.addToFavorites');
-if (favBtn) {
-  favBtn.addEventListener('click', (e) => {
-    AddToFavorites(e.target.dataset.id);
-  });
-}
-
-function AddToFavorites(id, obj) {
-  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  if (!favorites.includes(id)) {
-    favorites.push(id);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }
-}
-
 const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
 const btn = document.querySelector('.addToFavorites');
@@ -105,11 +90,6 @@ function goToFavoritesPage() {
 
   // Filter out null/undefined/empty
   favorites = favorites.filter(id => id);
-
-  if (favorites.length === 0) {
-    alert("No favorites yet!");
-    return;
-  }
 
   const query = favorites.join(',');
   window.location.href = `/favorites?ids=${query}`;
