@@ -106,10 +106,6 @@ Om te kunnen zoeken wordt er getest of **search** in de URL zit. Als dit zo is w
 
 Alle `liquid` bestanden hebben een los CSS bestand zodat het compact en los van elkaar staat. De kaarten worden via een render template.
 
-```js
-{% render 'server/components/card/card.liquid', item: item %}
-```
-
 Om de css die ik wil aanroepen voor elk bestand zet ik een algemene class die alleen voorkomt bij die pagina. Dit zorgt ervoor dat de css alleen wordt aangeroepen als dit nodig is.
 
 ```css
