@@ -106,7 +106,7 @@ Om te kunnen zoeken wordt er getest of **search** in de URL zit. Als dit zo is w
 
 Alle `liquid` bestanden hebben een los CSS bestand zodat het compact en los van elkaar staat. De kaarten worden via een render template.
 
-```liquid
+```js
 {% render 'server/components/card/card.liquid', item: item %}
 ```
 
