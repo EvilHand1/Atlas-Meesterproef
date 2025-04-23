@@ -95,3 +95,15 @@ function goToFavoritesPage() {
   window.location.href = `/favorites?ids=${query}`;
 }
 
+  document.querySelectorAll('.pagination a').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const movieList = document.getElementById('movie-list');
+      movieList.classList.add('fade-out');
+
+      setTimeout(() => {
+        window.location.href = this.href;
+      }, 400); // match transition duration
+    });
+  });

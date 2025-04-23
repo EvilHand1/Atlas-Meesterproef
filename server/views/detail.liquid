@@ -12,12 +12,10 @@
         </div>
 
         <div class="movieDetails__image">
-            <img
-                id="movie_{{ item.id }}"	 
+            <img id="movie_{{ item.id }}" class="card__image" 
                 src="https://image.tmdb.org/t/p/original{{ item.poster_path }}"
                 title="{{ item.title }}" alt="{{ item.title }}"
-                style="view-transition-name: movie_{{ item.id }}"
-                 />
+                style="view-transition-name: movie_{{ item.id }}" />
         </div>
 
         <div class="movieDetails__info">

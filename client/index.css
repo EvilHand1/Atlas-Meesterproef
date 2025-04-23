@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  color: black;
+  color: #fff;
   margin: 0 auto;
 }
 
@@ -42,15 +42,14 @@ main {
 }
 
 html::view-transition {
-  /* Optional: custom styling */
   animation-duration: 0.4s;
 }
 
-::view-transition-old(movie-*) {
+::view-transition-old(movie_*) {
   opacity: 1;
 }
 
-::view-transition-new(movie-*) {
+::view-transition-new(movie_*) {
   opacity: 0;
   animation: fadeIn 0.5s ease forwards;
 }
@@ -58,5 +57,14 @@ html::view-transition {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+.fade-transition {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.fade-transition.fade-out {
+  opacity: 0;
 }
 

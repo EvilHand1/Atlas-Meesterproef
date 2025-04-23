@@ -1,6 +1,7 @@
 body {
   display: grid;
   grid-template-rows: auto 1fr auto;
+  color: #fff;
 }
 
 header {
@@ -24,6 +25,25 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      .search {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        gap: 0;
+  
+        input {
+          margin-right: 0;
+          border-radius: 5px 0 0 5px;
+        }
+  
+        button {
+          border-radius: 0 5px 5px 0;
+          border: none;
+          background-color: #fff;
+          color: #1aa34a;
+        }
+      }
     }
   }
 
@@ -38,27 +58,13 @@ header {
     @media screen and (min-width: 568px) {
       justify-content: space-between;
     }
-
-    .search {
-      display: flex;
-      align-items: center;
-      margin-bottom: 0;
-      gap: 0;
-
-      input {
-        margin-right: 0;
-        border-radius: 5px 0 0 5px;
-      }
-
-      button {
-        border-radius: 0 5px 5px 0;
-        border: 1px solid #1aa34a;
-      }
-    }
   }
 }
 
-main {}
+main {
+background-color: #333;
+
+}
 
 footer {
   display: grid;

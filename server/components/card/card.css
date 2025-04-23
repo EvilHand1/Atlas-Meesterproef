@@ -23,6 +23,7 @@
   overflow: hidden;
   border-radius: 10px;
   height: 100%;
+  position: relative;
 
   .card__image {
     width: 100%;
@@ -32,11 +33,27 @@
   }
 
   h2 {
-    color: #000;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;	
+    transition: all 0.3s ease-out;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    margin: 0;
+    padding: 10px;
+    opacity: 0;
   }
 
-  *:not(.card__image) {
+  *:not(.card__image, h2) {
     padding: 10px;
     margin: 0;
+  }
+
+  &:hover {
+    h2 {
+      transition: all 0.3s ease-out;
+      opacity: 1;
+    }
   }
 }

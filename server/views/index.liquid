@@ -37,7 +37,7 @@
 </aside>
 
 <!-- Movie List -->
-<ul class="grid">
+<ul id="movie-list" class="grid movie-list fade-transition">
   {% for item in items %}
     <li class="grid__item">
       <a href="/movie/{{ item.id }}" class="movie__link">
