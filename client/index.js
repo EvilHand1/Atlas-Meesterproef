@@ -17,93 +17,41 @@ document.querySelectorAll('.card_image').forEach(card => {
   });
 });
 
-const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+var favoritesLink = document.querySelector('.goToFavorites');
 
-const btn = document.querySelector('.addToFavorites');
-
-if (btn) { // Safety check
-  const id = btn.dataset.id;
-  const icon = btn.querySelector('i');
-
-  if (favorites.includes(id)) {
-    icon.classList.remove('fa-regular');
-    icon.classList.add('fa-solid');
-  }
+if (favoritesLink) {
+  favoritesLink.addEventListener('click', () => {
+    window.location.href = '/favorites'; // no query needed anymore
+  });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const btn = document.querySelector('.addToFavorites');
   if (!btn) return;
 
   const id = btn.dataset.id;
   const icon = btn.querySelector('i');
+  if (!id || !icon) return;
 
-  // Sanity check
-  if (!id || !icon) {
-    console.warn("Missing movie ID or <i> tag inside button.");
-    return;
-  }
+  // Get current favorite status from server
+  const response = await fetch(`/api/favorites/${id}`);
+  const data = await response.json();
 
-  // Clean localStorage
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  favorites = favorites.filter(fav => fav); // remove nulls
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-
-  // Set initial icon
-  if (favorites.includes(id)) {
+  if (data.isFavorite) {
     icon.classList.remove('fa-regular');
     icon.classList.add('fa-solid');
   }
 
-  // Toggle on click
-  btn.addEventListener('click', () => {
-    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const index = favorites.indexOf(id);
+  btn.addEventListener('click', async () => {
+    const res = await fetch(`/api/favorites/${id}`, { method: 'POST' });
+    const result = await res.json();
 
-    if (!id) return; // extra safety
-
-    if (index === -1) {
-      favorites.push(id);
+    if (result.status === 'added') {
       icon.classList.remove('fa-regular');
       icon.classList.add('fa-solid');
     } else {
-      favorites.splice(index, 1);
       icon.classList.remove('fa-solid');
       icon.classList.add('fa-regular');
     }
-
-    localStorage.setItem('favorites', JSON.stringify(favorites));
   });
 });
-
-var favoritesLink = document.querySelector('.goToFavorites');
-
-if (favoritesLink) {
-  favoritesLink.addEventListener('click', (e) => {
-    goToFavoritesPage();
-    console.log('kaas');
-  });
-}
-
-function goToFavoritesPage() {
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-  // Filter out null/undefined/empty
-  favorites = favorites.filter(id => id);
-
-  const query = favorites.join(',');
-  window.location.href = `/favorites?ids=${query}`;
-}
-
-  document.querySelectorAll('.pagination a').forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-
-      const movieList = document.getElementById('movie-list');
-      movieList.classList.add('fade-out');
-
-      setTimeout(() => {
-        window.location.href = this.href;
-      }, 400); // match transition duration
-    });
-  });

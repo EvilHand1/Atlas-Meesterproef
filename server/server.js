@@ -3,6 +3,9 @@ import { App } from '@tinyhttp/app';
 import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
 import sirv from 'sirv';
+import { LocalStorage } from 'node-localstorage';
+
+const localStorage = new LocalStorage('./favorites');
 
 // ApiKey and URL for The Movie Database API
 const apiKey = process.env.movieDB_APIKey;
@@ -106,11 +109,10 @@ app.get('/movie/:id/', async (req, res) => {
   }));
 });
 
-// Pad naar de favorieten pagina
+// Favorieten pagina
 app.get('/favorites', async (req, res) => {
-  const ids = req.query.ids ? req.query.ids.split(',') : [];
+  const ids = getFavorites();
 
-  // Check of er geen favorieten zijn
   if (!ids.length) {
     return res.send(renderTemplate('server/views/favorites.liquid', {
       title: 'Favorites',
@@ -119,25 +121,20 @@ app.get('/favorites', async (req, res) => {
   }
 
   const items = [];
-
-  // Haal de de details op van de films met de opgegeven ids
   for (const id of ids) {
     const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`;
     const response = await fetch(url);
     const movie = await response.json();
-
-    // voeg de films toe aan de items array
-    items.push(movie);  
+    items.push(movie);
   }
 
-  // Render de template met de opgehaalde films
   return res.send(renderTemplate('server/views/favorites.liquid', {
     title: 'Favorites',
     items
   }));
 });
 
-// Function to render the Liquid template
+// Function om Liquid template te renderen 
 const renderTemplate = (template, data) => {
   const templateData = {
     NODE_ENV: process.env.NODE_ENV || 'production',
@@ -149,4 +146,39 @@ const renderTemplate = (template, data) => {
 // Fetch genres before starting the server
 fetchGenres().then(() => {
   app.listen(3000, () => console.log('Server available on http://localhost:3000'));
+});
+
+
+// Favorites API
+
+// Helper
+function getFavorites() {
+  return JSON.parse(localStorage.getItem('favorites') || '[]');
+}
+
+function saveFavorites(favorites) {
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+// Toggle favorite
+app.post('/api/favorites/:id', async (req, res) => {
+  const id = req.params.id;
+  let favorites = getFavorites();
+
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(f => f !== id);
+    saveFavorites(favorites);
+    return res.json({ status: 'removed' });
+  } else {
+    favorites.push(id);
+    saveFavorites(favorites);
+    return res.json({ status: 'added' });
+  }
+});
+
+// Check if a movie is in favorites
+app.get('/api/favorites/:id', (req, res) => {
+  const id = req.params.id;
+  const favorites = getFavorites();
+  res.json({ isFavorite: favorites.includes(id) });
 });
