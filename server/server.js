@@ -7,7 +7,8 @@ import sirv from 'sirv';
 // Haal de API-sleutel op uit .env
 const apiKey = process.env.API_KEY;
 
-const apiUrl = 'https://api.unsplash.com/photos?client_id=' + apiKey + '&per_page=30&order_by=latest';
+const apiUrl = `https://api.unsplash.com/photos?client_id=${apiKey}&per_page=30&order_by=latest&page=2`;
+
 
 // Maak een Liquid Engine voor rendering van templates
 const engine = new Liquid({
@@ -43,7 +44,8 @@ app.get('/', async (req, res) => {
 app.get('/users/:username', async (req, res) => {
   const username = req.params.username;
   const usersAPIEndpoint = `https://api.unsplash.com/users/${username}?client_id=${apiKey}`;
-  const userPhotosAPIEndpoint = `https://api.unsplash.com/users/${username}/photos?client_id=${apiKey}`;
+  const userPhotosAPIEndpoint = `https://api.unsplash.com/users/${username}/photos?client_id=${apiKey}&per_page=30`;
+
 
   const userResponse = await fetch(usersAPIEndpoint);
   const userData = await userResponse.json();

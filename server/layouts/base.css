@@ -12,8 +12,7 @@ header a img {
 header a:nth-of-type(1) {
   position: fixed;
   top: .5em;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 2em;
   backdrop-filter: blur(10px);
   border-radius: 1em;
   display: flex;
