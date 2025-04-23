@@ -1,5 +1,6 @@
 :root {
-  --text: rgba(35, 31, 36, 1);
+  --text:rgba(35, 31, 36, 1);
+  --dark: rgba(71, 56, 76, 1);
   --wit: rgb(251, 240, 255);
   --detail: rgba(187, 175, 205, 0.8253895308123249);
 }
@@ -31,7 +32,7 @@ main {
 }
 
 #photoContainer li {
-  width: min(17em, 20%);
+  width: min(15em, 20%);
   flex-grow: 1;
   /* max-height:100vh; */
 
@@ -65,6 +66,7 @@ dialog {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+
 /* Als hij zichtbaar wordt */
 dialog[open] {
   opacity: 1;
@@ -83,7 +85,7 @@ dialog[open] {
 }
 
 .dialog-image {
-  max-width: 50%;
+  max-width: 60%;
   max-height: 70vh;
   aspect-ratio: var(--aspect-ratio);
 }
@@ -105,7 +107,8 @@ dialog[open] {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  background-color: var(--detail);
+  color: var(--wit);
+  background-color: var(--dark);
   padding: .4em .7em;
 }
 
@@ -116,7 +119,6 @@ dialog[open] {
 }
 
 #moreDetailsOver a {
-  text-decoration: none;
   color: var(--text);
 }
 
@@ -125,23 +127,21 @@ dialog[open] {
   /* ruimte onder button */
   margin-bottom: 0.5rem;
   font-size: 2em;
+  opacity: .8; 
 }
 
-.details-content p {
-  font-size: 1.2em;
 
-}
-
-.details-content > p:first-of-type {
+.location{
   margin: 0;
+  font-size: 1.2em;
   font-weight: 100;
 }
 
-.details-content p:nth-of-type(2) {
+.text {
   margin: .5em 0;
   font-size: 4em;
   font-weight: 800;
-  color: var(--detail);
+  color: var(--dark);
   font-style: italic;
   hyphens: auto;
 }
@@ -206,10 +206,6 @@ dialog[open] {
   100% {
     transform: scale(1);
   }
-}
-
-.likeButton svg path {
-  transition: fill 1s ease, stroke 1s ease;
 }
 
 /* ////////////detail pagina//////////// */
@@ -294,14 +290,17 @@ dialog[open] {
 .detailMain  a:visited {
   color: var(--wit);
 }
+button:focus{
+  outline: .5em solid var(--wit);
+}
 
 button:focus-visible{
   border-radius: .7em;
-  outline: .5em solid var(--wit);
+  outline: .5em solid var(--text);
 }
 a:focus-visible { 
   border-radius: .2em;
-  outline: .3em solid var(--detail);
+  outline: .3em solid var(--text);
 
 }
 .detailMain a:focus-visible {
@@ -317,16 +316,6 @@ margin: 1em 0;
 font-weight: 700;
 color: var(--detail);
 }
-footer ul {
-  display: flex;
-  list-style: none;
-  color: var(--text);
-  justify-content: end;
-  gap: 2em;
-  margin: auto;
-  font-size: 1em;
-  padding: 1em 0;
-}
 
 /* /////////////////////////////liked pagina///////////////////// */
 
@@ -335,11 +324,12 @@ footer ul {
   font-weight: 600;
   margin-bottom: .5em;
   color: var(--detail);
+  opacity: .5;
 }
 #likedPhotosContainer{
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5em;
+  gap: 1em;
   align-items: stretch;
 }
 
@@ -348,14 +338,17 @@ footer ul {
   flex-direction: column;
   align-items: start;
   padding: 1em;
+  border-radius:2em ;
 
-  width: min(12em, 10%);
+
+  width: min(15em, 20%);
   flex-grow: 1;
- background-color: var(--detail);
-
+  background: rgb(142, 126, 167);
+  background: radial-gradient(circle,rgb(187, 175, 205) 0%,rgb(142, 126, 167) 100%);
+  max-width: 50%;
   &.landscape {
-    width: max(10em, 30%);
-  }
+    width: max(17em, 40%);
+  }  
 }
 #likedPhotosContainer a{
   text-decoration: none; 
@@ -371,7 +364,7 @@ footer ul {
   font-weight: 700;
   margin-bottom: 1em ;
   hyphens: auto;
-
+  font-style: italic;
   color: var(--wit);
 }
 
@@ -388,14 +381,18 @@ footer ul {
 
 
 .likeButton{
+  position: relative;
   background-color: transparent;
   border: none;
   height: 4em;
-  width: 4em;
+  width: 100%;
 }
 
 .likeButton svg{
-  height: 4em;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 4em;  
   width: 4em;
 }
 
@@ -415,7 +412,7 @@ footer ul {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 0;
+    padding: .5em;
     width: 85vw;
     gap: 0;
   } 
@@ -425,11 +422,17 @@ footer ul {
     top: 1em;
     right: 1em;
   }
+  .details-content{
+    padding: .5em;
+  }
 
   .details-content h2 {
     margin-top: .5em;
     /* ruimte onder button */
+  }
 
+  .landscape .dialog-image{
+    max-width: 100%;
   }
 
   .details-content p:nth-of-type(2) {
@@ -437,7 +440,6 @@ footer ul {
     font-size: 3em;
     width: 100%;
     font-weight: 800;
-    color: var(--detail);
     font-style: italic;
   }
 
@@ -447,13 +449,13 @@ footer ul {
   }
 
   .details-content button {
-    bottom: 40%;
-    right: .5em;
+    bottom: 35%;
+    right: 1em;
+
   }
   .dialog-image {
     max-width: 100%;
-    
-    aspect-ratio: var(--aspect-ratio);
+
   }
   main{
     margin: 1em;
@@ -464,7 +466,7 @@ footer ul {
 }
 
 
-@media (max-width:900px) {
+@media (min-width:601px) and (max-width:1000px) {
 .landscape #moreDetailsOver {
     display: flex;
     flex-direction: column;

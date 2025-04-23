@@ -29,3 +29,18 @@ header a{
 footer {
   padding: 1rem;
 }
+footer ul {
+  display: flex;
+  list-style: none;
+  color: var(--text);
+  justify-content: end;
+  gap: 2em;
+  margin: auto;
+  font-size: 1em;
+  padding: 1em 0;
+}
+
+footer a{
+  color: var(--text);
+  text-decoration: none;
+}

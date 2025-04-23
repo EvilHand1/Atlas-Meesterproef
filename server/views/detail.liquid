@@ -8,12 +8,16 @@
     <img src="{{ profile.profile_image.large }}" alt="{{ profile.name }}'s profile image" id="profile__image">
     <div>
       <h1 class="h1">{{ profile.name }}</h1>
-      <p> 📍 {{ profile.location | default: "unknown location" }}</p>
+      {% if profile.location %}
+      <p> 📍 {{ profile.location}}</p>
+    {% endif %}
       <p>{{ profile.bio }}</p>
+      {% if  profile.portfolio_url  %}
       <p>
         Website:
-        <a href="{{ profile.portfolio_url}}" target="_blank"> {{ profile.portfolio_url | default: "no website" }}</a>
+        <a href="{{ profile.portfolio_url}}" target="_blank"> {{ profile.portfolio_url }}</a>
       </p>
+    {% endif %}
       <ul>
       {% for tag in profile.tags.custom %}
         <li>{{ tag.title }}</li>
