@@ -287,15 +287,12 @@ dialog[open] {
   color: var(--wit);
 }
 
-.detailMain  a:visited {
+.detailMain a:visited {
   color: var(--wit);
-}
-button:focus{
-  outline: .5em solid var(--wit);
 }
 
 button:focus-visible{
-  border-radius: .7em;
+  border-radius: .3em;
   outline: .5em solid var(--text);
 }
 a:focus-visible { 
