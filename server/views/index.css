@@ -37,7 +37,7 @@ main {
   /* max-height:100vh; */
 
   &.landscape {
-    width: max(17em, 40%);
+    width: max(17em, 30%);
   }
 }
 
