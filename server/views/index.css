@@ -66,8 +66,6 @@ dialog {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-
-/* Als hij zichtbaar wordt */
 dialog[open] {
   opacity: 1;
   transform: scale(1);
@@ -124,7 +122,6 @@ dialog[open] {
 
 .details-content h2 {
   margin-top: 2rem;
-  /* ruimte onder button */
   margin-bottom: 0.5rem;
   font-size: 2em;
   opacity: .8; 
@@ -195,7 +192,6 @@ dialog[open] {
 
   70% {
     transform: scale(1.4);
-    /* transform: translate(-1em, -.5em); */
     filter: blur(.2em);
 
   }
@@ -434,7 +430,6 @@ color: var(--detail);
 
   .details-content h2 {
     margin-top: .5em;
-    /* ruimte onder button */
   }
 
   .landscape .dialog-image{

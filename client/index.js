@@ -47,19 +47,17 @@ photoContainers.forEach(photoContainer => {
 
 
 
-/////////like button////////////////
-
 
 /////////color////////////////
 
-// Functie om de luminantie van een kleur te berekenen
+
 function getLuminance(hex) {
   // Hex kleur omzetten naar RGB
   let r = parseInt(hex.slice(1, 3), 16);
   let g = parseInt(hex.slice(3, 5), 16);
   let b = parseInt(hex.slice(5, 7), 16);
 
-  // RGB naar schaal van 0 tot 1 omrekenen
+  
   r = r / 255;
   g = g / 255;
   b = b / 255;
@@ -84,16 +82,16 @@ function adjustTextColorForColorDiv() {
 
     let luminance = getLuminance(backgroundColor);
 
-    // Pas de tekstkleur aan op basis van de luminantie
+  
     let textColor = luminance > 0.5 ? ' rgba(71, 56, 76, 1)' : 'rgb(251, 240, 255)';
-    let textElement = div.querySelector('p'); // Zoek het <p>-element binnen de div
-    textElement.style.color = textColor; // Pas de tekstkleur aan
+    let textElement = div.querySelector('p'); 
+    textElement.style.color = textColor; 
   });
 }
 window.onload = adjustTextColorForColorDiv;
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("📜 JavaScript actief");
+  // console.log("📜 JavaScript actief");
 
   const likeButtons = document.querySelectorAll(".likeButton");
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -104,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const svg = likeButton.querySelector("svg");
     let liked = favorites.includes(photoId);
 
-    // Initiele hart status
+    
     heart.setAttribute("fill", liked ? "#47284C" : "transparent");
     heart.setAttribute("stroke", liked ? "transparent" : "#171616");
 
@@ -112,13 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
       liked = !liked;
 
       if (liked) {
-        // Like toevoegen
+       
         if (!favorites.includes(photoId)) {
           favorites.push(photoId);
         }
         console.log(`Toegevoegd: ${photoId}`);
 
-        // Hartje like animatie
+        // verwijder animatie/
         svg.animate(
           [
             { transform: "scale(1)" },
@@ -131,13 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         );
       } else {
-        // Like verwijderen
+       
         favorites = favorites.filter(id => id !== photoId);
         console.log(`Verwijderd: ${photoId}`);
 
         const li = likeButton.closest(".liked-photo");
         if (li) {
-          // Foto fade-up verwijderen via Web Animations API
+        
           li.animate(
             [
               { opacity: 1, transform: "translateY(0px)" },
@@ -153,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
           };
         }
 
-        // Hartje unlike animatie
+      
         svg.animate(
           [
             { transform: "scale(1)" },
@@ -167,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
 
-      // Update opslag en hart-styling
+      
       localStorage.setItem("favorites", JSON.stringify(favorites));
 
       heart.setAttribute("fill", liked ? "#47284C" : "rgb(251, 240, 255)");
