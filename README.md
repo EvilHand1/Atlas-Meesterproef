@@ -28,9 +28,10 @@ Dit concept is goed gekeurd, alleen vinden Cyd en Declan het een saai project, w
  
  ik heb eerst instagram nagemaakt en op pinterest en dribbble gekeken wat beter kon want instagram op desktop is niet al te best. 
  dit zijn mijn eerste schermen: 
+ 
+<img height="300" alt="Screenshot 2025-04-24 at 12 53 22" src="https://github.com/user-attachments/assets/021ca37a-ab4a-4d3f-91cc-5109ba2f49ab" />
+<img height="300" alt="Screenshot 2025-04-24 at 12 53 31" src="https://github.com/user-attachments/assets/74d0c9ca-517f-4303-93b9-decbfb9a35b5" />
 
-img
-img
 
 ## feedback:
 
@@ -51,7 +52,7 @@ Deze week heb ik gewerkt aan het helemaal veranderen van mijn eerste schets. Ik 
 
 op de dialog heb ik ook een p gemaakt met de kleur code van de foto, wat ik eigenlijk best gaaf vind. ik wilde eerst de achtergrond van de dialog maken als die kleur, maar dat vond ik niet mooi, dus heb een soort tekst vlakje met de kleur gemaakt!
 
-img
+<img width="1000" alt="Screenshot 2025-04-24 at 12 08 56" src="https://github.com/user-attachments/assets/525ffb6b-37ce-4594-ba66-6e52953692de" />
 
 toen dat af was ben ik begonnen aan de detail pagina. ik heb deze week vooral gefocused op de styling en nog niet aan de. Web APIs. 
 
@@ -87,6 +88,8 @@ deze week had ik weer Cyd, en zij vond dat het er goed uit zag en misschien het 
 
 ze zei ook over de kleur van de foto om die te maken naar de dialog en ik vertelde haar dat ik het eigenlijk helemaal neit mooi vond, omdat het zo heftig was en niet helemaal paste bij de paarse kleur ik gebruik. toen zei ze dat ik ook color-mix kan doen en dus kan mixen. 
 
+<img width="1000" alt="Screenshot 2025-04-24 at 12 11 17" src="https://github.com/user-attachments/assets/2c4f1067-92c6-4822-b805-cc3b66475095" />
+
 
 ## reflectie
 
@@ -112,7 +115,8 @@ link: https://developer.chrome.com/docs/web-platform/view-transitions
 
 ik kon niet vinden hoe zij dit deden dus heb chatGPT gevraagd en hij gaf me deze code:
 
-img
+<img width="500" alt="Screenshot 2025-04-24 at 12 25 12" src="https://github.com/user-attachments/assets/5e005738-87f0-4ff4-aa38-f1115ea2e37b" />
+
 
 
 ## feedback:
