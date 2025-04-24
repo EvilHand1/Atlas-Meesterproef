@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { App } from '@tinyhttp/app';
 import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
@@ -22,6 +21,7 @@ app
   .use(logger())
   .use('/', sirv('dist')) // Zorg ervoor dat 'dist' de juiste map is
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
+
 
 // Render functie voor Liquid templates
 const renderTemplate = (template, data) => {
@@ -78,4 +78,25 @@ app.get('/favorites', async (req, res) => {
   return res.send(renderTemplate('server/views/liked.liquid', { title: 'Favorieten', likes: likedPhotos }));
 });
 
+
+=======
+app.get('/', async (req, res) => {
+  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', items: Object.values(data) }));
+});
+
+app.get('/plant/:id/', async (req, res) => {
+  const id = req.params.id;
+  const item = data[id];
+  if (!item) {
+    return res.status(404).send('Not found');
+  }
+  return res.send(renderTemplate('server/views/detail.liquid', {
+    title: `Detail page for ${id}`,
+    item: item
+  }));
+});
+
+const renderTemplate = (template, data) => {
+  return engine.renderFileSync(template, data);
+};
 
