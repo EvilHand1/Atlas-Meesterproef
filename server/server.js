@@ -78,25 +78,3 @@ app.get('/favorites', async (req, res) => {
   return res.send(renderTemplate('server/views/liked.liquid', { title: 'Favorieten', likes: likedPhotos }));
 });
 
-
-=======
-app.get('/', async (req, res) => {
-  return res.send(renderTemplate('server/views/index.liquid', { title: 'Home', items: Object.values(data) }));
-});
-
-app.get('/plant/:id/', async (req, res) => {
-  const id = req.params.id;
-  const item = data[id];
-  if (!item) {
-    return res.status(404).send('Not found');
-  }
-  return res.send(renderTemplate('server/views/detail.liquid', {
-    title: `Detail page for ${id}`,
-    item: item
-  }));
-});
-
-const renderTemplate = (template, data) => {
-  return engine.renderFileSync(template, data);
-};
-
