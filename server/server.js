@@ -77,4 +77,3 @@ app.get('/favorites', async (req, res) => {
 
   return res.send(renderTemplate('server/views/liked.liquid', { title: 'Favorieten', likes: likedPhotos }));
 });
-

@@ -6,11 +6,6 @@
   "scripts": {
     "clean": "rimraf dist && mkdir dist",
     "start": "node server/server.js",
-
-    "predev": "npm run clean && npm run build:client",
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:client": "chokidar '**/*' -i 'dist/**/*' -c 'npm run build:client'",
-
     "predev": "npm run clean && npm run build",
     "dev": "npm-run-all --parallel dev:*",
     "dev:client": "chokidar 'client/**/*' -c 'npm run build:client'",
