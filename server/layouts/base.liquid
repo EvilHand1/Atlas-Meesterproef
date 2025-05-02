@@ -6,6 +6,8 @@
     <title>{{ title }}</title>
   {% endblock %}
   <link rel="stylesheet" href="/index.css">
+  <link rel="icon" type="image/x-icon" href="/images/logo.svg">
+
   <script src="/index.js" defer></script>
   {% block styles %}{% endblock %}
   {% block scripts %}{% endblock %}
@@ -13,13 +15,37 @@
 
 <body>
   <header>
-    Deze header staat op elke pagina
-  </header>
+  <a href="/">
+    <img src="/images/visoraName.svg" alt="visora titel">
+  </a>
+  <a href="#" id="goToFavorites">
+    <svg xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns="http://www.w3.org/2000/svg"
+         class="PpK6d"
+         width="24"
+         height="24"
+         viewBox="0 0 24 24"
+         version="1.1"
+         aria-hidden="false"
+         style="flex-shrink: 0; view-transition-name: heart-icon;">
+      <desc lang="en-US" fill="#555555">A heart</desc>
+      <path d="M21.424 4.594c-2.101-2.125-5.603-2.125-7.804 0l-1.601 1.619-1.601-1.62c-2.101-2.124-5.603-2.124-7.804 0-2.202 2.126-2.102 5.668 0 7.894L12.019 22l9.405-9.513a5.73 5.73 0 0 0 0-7.893Z"
+            fill="transparent" stroke="rgb(246, 223, 255)">
+      </path>
+    </svg>
+  </a>
+</header>
   <main>
     {% block content %}{% endblock %}
   </main>
   <footer>
-    Deze footer staat op elke pagina
+   <ul>
+    <li> ®Visora credits</li> 
+    <li>Privacy</li>
+    <li>Help</li>
+    <li>about</li>
+    <li> <a href="#" id="goToFavorites">liked</a></li>
+   </ul>
   </footer>
 </body>
 </html>

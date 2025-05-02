@@ -2,15 +2,43 @@
 
 {% block content %}
 
-<h1 class="h1">{{ title }}</h1>
+<ul id="photoContainer">
+  {% for photo in photos %}
+  <li>
+    <dialog id="foto-{{ photo.id }}" style="background-color: color-mix(in srgb, var(--wit) 70%, {{ photo.color }} 30%);">
+      <form class="moreDetails" id="moreDetailsOver" method="dialog">
+        <button type="submit" aria-label="Close modal">×</button>
+        <div class="dialog-image" style="--aspect-ratio: {{ photo.width }} / {{ photo.height }};">
+          <img src="{{ photo.urls.full }}" alt="{{ photo.alt_description }}" id="card__image">
+        </div>
+        <div class="details-content">
+          <a href="/users/{{ photo.user.username }}">
+            <h2>{{ photo.user.name }}</h2>
+            </a>
+            {% if photo.user.location %}
+              <p class="location">📍{{ photo.user.location }}</p>
+            {% endif %}
+          <p class="text">{{ photo.alt_description }}</p>
+          
+          <div style="background-color:{{ photo.color }}" id="color-info-{{ photo.id }}">
+            <p id="colorText-{{ photo.id }}" >{{ photo.color }}</p>
+          </div>
+          <button class="likeButton" type="button" data-photo-id="{{ photo.id }}" aria-label="Like photo">
+            <svg xmlns="http://www.w3.org/2000/svg" class="PpK6d" viewBox="0 0 24 24" version="1.1" aria-hidden="false" stroke="rgba(35, 31, 36, 1)" stroke-width="1">
+              <desc lang="en-US">A heart</desc>
+              <path data-photo-id="{{ photo.id }}"
+        d="M21.424 4.594c-2.101-2.125-5.603-2.125-7.804 0l-1.601 1.619-1.601-1.62c-2.101-2.124-5.603-2.124-7.804 0-2.202 2.126-2.102 5.668 0 7.894L12.019 22l9.405-9.513a5.73 5.73 0 0 0 0-7.893Z"
+        fill="#47284C" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </dialog>
 
-<ul class="grid">
-  {% for item in items %}
-    <li>
-      <a href="/plant/{{ item.id }}">
-        {% render 'server/components/card/card.liquid', item: item %}
-      </a>
-    </li>
+    <button type="button" data-modalPhoto="{{ photo.id }}">
+      <img src="{{ photo.urls.regular}}" alt="{{ photo.alt_description }}" id="card__image">
+    </button>
+  </li>
   {% endfor %}
 </ul>
 
