@@ -1,40 +1,29 @@
 import express from 'express';
-import fetch from 'node-fetch'; // of global fetch bij Node 18+
+import fetch from 'node-fetch';
 import path from 'path';
-import {
-  fileURLToPath
-} from 'url';
+import { fileURLToPath } from 'url';
 
 const app = express();
 
-// Setup voor Liquid
-import {
-  Liquid
-} from 'liquidjs';
+// Liquid setup
+import { Liquid } from 'liquidjs';
 const engine = new Liquid();
 app.engine('liquid', engine.express());
 app.set('views', './server/views');
 app.set('view engine', 'liquid');
 
 // Static bestanden
-const __dirname = path.dirname(fileURLToPath(
-  import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/client', express.static(path.join(__dirname, '../client')));
 app.use(express.static(path.join(__dirname, '../dist')));
 
-
+// API urls
 const jsonAdress = 'https://fdnd-agency.directus.app/items/atlas_address/';
 const jsonPerson = 'https://fdnd-agency.directus.app/items/atlas_person/';
-const jsonPoster = 'https://fdnd-agency.directus.app/items/atlas_poster/';
 const jsonFamily = 'https://fdnd-agency.directus.app/items/atlas_family/';
 
-
-
-
-
-// Route
+// Home route
 app.get('/', async (req, res) => {
   try {
     const [personRes, addressRes] = await Promise.all([
@@ -46,12 +35,13 @@ app.get('/', async (req, res) => {
     const adressen = (await addressRes.json()).data;
 
     const straten = [...new Set(
-      adressen
-        .map(adres => adres.street?.trim()) // trim spaties
-        .filter(Boolean) // filter lege of undefined waarden
+      adressen.map(adres => adres.street?.trim()).filter(Boolean)
     )];
 
-    res.render('index', { personen, straten });
+    res.render('index', {
+      personen,
+      straten
+    });
 
   } catch (err) {
     console.error(err);
@@ -59,69 +49,42 @@ app.get('/', async (req, res) => {
   }
 });
 
+// Straat route
 app.get('/:straatnaam', async (req, res) => {
+
+  const straatnaam = req.params.straatnaam;
+
   try {
-    const straatnaam = req.params.straatnaam.trim();
+    const adressenData = await fetch('https://fdnd-agency.directus.app/items/atlas_address/');
+    const adressen = await adressenData.json();
+    const huidigAdres = adressen.data.filter(adres => adres.street?.trim() === straatnaam);
 
-    const [addressRes, personRes] = await Promise.all([
-      fetch(jsonAdress),
-      fetch(jsonPerson)
-    ]);
+    await Promise.all(huidigAdres.map(async (adres) => {
+      const personen = adres.person;
+      if (Array.isArray(personen) && personen.length > 0) {
+        // Fetch all personen for this adres
+        const personenData = await Promise.all(personen.map(async (persoonId) => {
+          const persoonData = await fetch(`https://fdnd-agency.directus.app/items/atlas_person/${persoonId}`);
+          const persoonJson = await persoonData.json();
+          return persoonJson.data;
+        }));
+        // Set last_name from the first person (or adjust as needed)
+        adres.last_name = personenData[0]?.last_name ? personenData[0].last_name : 'Onbekend';
+      } else {
+        adres.last_name = 'Onbekend';
+      }
+    }));
 
-    const adressen = (await addressRes.json()).data;
-    const personen = (await personRes.json()).data;
-
-    // Filter adressen op straatnaam
-    const gefilterdeAdressen = adressen.filter(adres => adres.street?.trim() === straatnaam);
-
-    const uniekeAdressen = [];
-
-const bestaandeCombinaties = new Set();
-
-for (const adres of gefilterdeAdressen) {
-  const combinatie = `${adres.street}-${adres.house_number}-${adres.addition ?? ''}`;
-  if (!bestaandeCombinaties.has(combinatie)) {
-    bestaandeCombinaties.add(combinatie);
-    uniekeAdressen.push(adres);
-  }
-}
-
-uniekeAdressen.sort((a, b) => {
-  // Eerst sorteren op huisnummer
-  if (a.house_number !== b.house_number) {
-    return a.house_number - b.house_number;
-  }
-
-  // Daarna optioneel op addition als die er is (alfabetisch)
-  const additionA = a.addition || '';
-  const additionB = b.addition || '';
-  return additionA.localeCompare(additionB);
-});
-
-
-
-    // IDs van de adressen in die straat
-    const adresIds = gefilterdeAdressen.map(adres => adres.id);
-
-    // Personen die op die adressen wonen
-    const personenInStraat = personen.filter(persoon =>
-      adresIds.includes(persoon.address_id)
-    );
-
-    res.render('straat', {
-      straatnaam,
-      personen: personenInStraat,
-      adressen: uniekeAdressen // gebruik de gefilterde lijst zonder duplicaten
+    res.render('street', {
+      huidigAdres,
+      straatnaam
     });
-    
   } catch (err) {
     console.error(err);
-    res.status(500).send('Fout bij ophalen van straatpagina');
+    res.status(500).send('Fout bij ophalen van API');
   }
-});
 
-
-
+})
 
 const port = 3000;
 app.listen(port, () => {

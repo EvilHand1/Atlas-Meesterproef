@@ -35,7 +35,7 @@ body {
   align-items: flex-end;
   justify-content: space-between;
   gap: .5rem;
-  height: 85vh;
+  height: 70vh;
   min-width: max-content;
   /* Zorg dat de wrapper net zo breed is als de inhoud */
   width: max-content;
@@ -45,7 +45,7 @@ body {
   padding: 0 !important;
   box-sizing: border-box;
   z-index: 1;
-  animation: street-scroll 25s linear infinite;
+  animation: street-scroll 60s linear infinite;
 }
 
 .street-name {
@@ -70,7 +70,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  /* height: 100%; */
   text-decoration: none;
 }
 
