@@ -183,19 +183,19 @@
 
 
   {% comment %} <h2>Straten</h2>
-                                                                                          <div class="straat-knoppen">
-                                                                                            {% for straat in straten %}
-                                                                                              <a href="/{{ straat | urlencode }}" class="straat-knop">{{ straat }}</a>
-                                                                                            {% endfor %}
-                                              </div> {% endcomment %}
+                                                                                              <div class="straat-knoppen">
+                                                                                                {% for straat in straten %}
+                                                                                                  <a href="/{{ straat | urlencode }}" class="straat-knop">{{ straat }}</a>
+                                                                                                {% endfor %}
+                                                </div> {% endcomment %}
 
   {% comment %} <section class="inleiding">
-            <h1>Welkom in de Oosterparkbuurt</h1>
-            <p>In het hart van Amsterdam ligt de Oosterparkbuurt. Vandaag een levendige wijk, maar ooit het stille decor van tragische verhalen uit de Tweede Wereldoorlog. Op deze website brengen we de geschiedenis tot leven van Joodse buurtbewoners die hier woonden, werkten, liefhadden, en die tijdens de oorlog zijn weggevoerd en nooit meer terugkeerden.</p>
-            <p>We vertellen hun verhalen. Niet als cijfers in een geschiedenisboek, maar als mensen van vlees en bloed – met namen, gezichten en herinneringen. Door persoonlijke getuigenissen, archiefmateriaal en lokale verhalen proberen we hun leven zichtbaar te maken voor nieuwe generaties.</p>
+                <h1>Welkom in de Oosterparkbuurt</h1>
+                <p>In het hart van Amsterdam ligt de Oosterparkbuurt. Vandaag een levendige wijk, maar ooit het stille decor van tragische verhalen uit de Tweede Wereldoorlog. Op deze website brengen we de geschiedenis tot leven van Joodse buurtbewoners die hier woonden, werkten, liefhadden, en die tijdens de oorlog zijn weggevoerd en nooit meer terugkeerden.</p>
+                <p>We vertellen hun verhalen. Niet als cijfers in een geschiedenisboek, maar als mensen van vlees en bloed – met namen, gezichten en herinneringen. Door persoonlijke getuigenissen, archiefmateriaal en lokale verhalen proberen we hun leven zichtbaar te maken voor nieuwe generaties.</p>
 
-            <p>Loop mee door de straten van toen en ontdek wat er zich afspeelde achter de gevels van nu. Want wie herdenkt, vergeet niet.</p>
-      </section> {% endcomment %}
+                <p>Loop mee door de straten van toen en ontdek wat er zich afspeelde achter de gevels van nu. Want wie herdenkt, vergeet niet.</p>
+        </section> {% endcomment %}
 
   <div class="map-wrapper">
     <svg
@@ -292,6 +292,13 @@
       class="tooltip"
       style="display: none;"></div>
   </div>
+
+
+  <ul>
+    <li><a href="/verhaal/Leo%20de%20Vries">Bekijk het verhaal van Leo de Vries</a></li>
+    <li><a href="/verhaal/Jozeph%20van%20den%20Bergh">Bekijk het verhaal van Jozeph van den Bergh</a></li>
+    <li><a href="/verhaal/Mozes%20Zurel%20en%20gezin">Bekijk het verhaal van Mozes Zurel en gezin</a></li>
+  </ul>
 
 
 {% endblock %}

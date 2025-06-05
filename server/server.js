@@ -49,7 +49,38 @@ app.get('/', async (req, res) => {
   }
 });
 
-// Straat route
+
+
+import fs from 'fs/promises';
+
+app.get('/verhaal/:naam', async (req, res) => {
+  try {
+    const naam = decodeURIComponent(req.params.naam);
+
+    const storyPath = path.join(__dirname, '../client/public/story.json');
+    const rawData = await fs.readFile(storyPath, 'utf-8');
+    const storyData = JSON.parse(rawData);
+
+    const persoon = storyData.personen.find(p => p.naam === naam);
+
+    if (!persoon) {
+      return res.status(404).send('Persoon niet gevonden');
+    }
+
+    res.render('generic', {
+      naam: persoon.naam,
+      familie: persoon.familie,
+      beroep: persoon.beroep,
+      verhaal: persoon.verhaal
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Fout bij ophalen van verhaal');
+  }
+});
+
+
 app.get('/:straatnaam', async (req, res) => {
 
   const straatnaam = req.params.straatnaam;
@@ -90,3 +121,52 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Server draait op http://localhost:${port}`);
 });
+
+app.get('/:straatnaam/:huisnummer', async (req, res) => {
+  try {
+    const straatnaam = req.params.straatnaam.trim();
+    const huisnummer = parseInt(req.params.huisnummer, 10);
+    const toevoeging = req.params.toevoeging?.trim() || null;
+
+    const [addressRes, personRes] = await Promise.all([
+      fetch(jsonAdress),
+      fetch(jsonPerson)
+    ]);
+
+    const adressen = (await addressRes.json()).data;
+    const personen = (await personRes.json()).data;
+
+    // Zoek het specifieke adres
+    const adres = adressen.find(adres =>
+      adres.street?.trim() === straatnaam &&
+      adres.house_number === huisnummer &&
+      (adres.addition?.trim() || null) === toevoeging
+    );
+
+    if (!adres) {
+      return res.status(404).send('Adres niet gevonden');
+    }
+
+    const bewoners = personen.filter(persoon =>
+      persoon.address_id === adres.id
+    );
+
+    res.render('detail', {
+      straatnaam,
+      huisnummer,
+      toevoeging,
+      adres,
+      bewoners
+    });
+
+
+
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Fout bij ophalen van huispagina');
+  }
+});
+
+
+
