@@ -240,27 +240,15 @@ gsap
 // einde deel joost
 // ================
 
-// floor text pin
-// ScrollTrigger.create({
-//   trigger: ".scene-4-text",
-//   start: "top top",
-//   endTrigger: ".scene-4-basement",
-//   end: "bottom top",
-//   scrub: 3,
-//   pin: ".scene-4-text",
-//   pinSpacing: false,
-//   markers: true,
-// })
-
 // lamp pin
 ScrollTrigger.create({
   trigger: ".scene-4-basement",
   start: "top top",
   end: "bottom top",
   scrub: 3,
-  pin: ".scene-4-basement",
+  pin: ".lamp-container",
   pinSpacing: false,
-  markers: true,
+  // markers: true,
   onUpdate: (self) => {
     const swingCount = 4;
     const swing = Math.sin(self.progress * Math.PI * 2 * swingCount) * 4;
@@ -268,21 +256,71 @@ ScrollTrigger.create({
   },
 });
 
-let tlScene4 = gsap.timeline({
+let tlBasement = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".scene-4-basement",
+    start: "top top",
+    end: "bottom 80%",
+    scrub: 3,
+    pin: ".scene-4-familie",
+    pinSpacing: false,
+    markers: {
+      startColor: "blue",
+      endColor: "pink",
+      fontSize: "18px", fontWeight: "bold", indent: 20
+    },
+    // markers: true,
+  },
+});
+
+tlBasement
+  // .to("#scene-4-dad", { fill: "pink" }, 0)
+  .fromTo(".scene-4-girl",
+    { x: "-100dvw"},
+    { x:0,
+      // stagger: 1,
+      ease: "power2.out",
+    }, ">")
+    .fromTo(".scene-4-mom",
+    { x: "100dvw"},
+    { x:0,
+      // stagger: 1,
+      ease: "power2.out",
+    }, ">")
+    .fromTo(".scene-4-dad",
+    { x: "-100dvw"},
+    { x:0,
+      // stagger: 1,
+      ease: "power2.out",
+    }, ">")
+    .fromTo(".scene-4-boy",
+    { x: "100dvw"},
+    { x:0,
+      // stagger: 1,
+      ease: "power2.out",
+    }, ">")
+;
+
+// lamp out(dark) animation
+let tlDark = gsap.timeline({
   scrollTrigger: {
     trigger: ".scene-4-dark",
     start: "top center",
     end: "top top",
     scrub: 3,
-    markers: true,
+    // markers: true,
   },
 });
 
-tlScene4
+tlDark
   .to(".scene-4-dark", { backgroundColor: "var(--color-gray-20)" }, 0)
   .to(".scene-4-basement", { backgroundColor: "var(--color-gray-20)" }, 0)
   .to("#wire", { fill: "var(--color-gray-20)" }, 0)
   .to("#bulb", { fill: "var(--color-gray-20)" }, 0)
+  .to("#scene-4-dad", { fill: "var(--color-gray-20)" }, 0)
+  .to("#scene-4-girl", { fill: "var(--color-gray-20)" }, 0)
+  .to("#scene-4-mom", { fill: "var(--color-gray-20)" }, 0)
+  .to("#scene-4-boy", { fill: "var(--color-gray-20)" }, 0)
   .fromTo(
     ".scene-4-dark p",
     { x: "-150vw" },
@@ -303,7 +341,7 @@ let tlCloud = gsap.timeline({
     trigger: ".scene-5-train",
     start: "top 80%",
     end: "top 20%",
-    scrub: true,
+    scrub: 3,
     // markers: true,
   },
 });
@@ -334,6 +372,7 @@ tlCloud
     0.6
   );
 
+// train animation
 let tlTrain = gsap.timeline({
   scrollTrigger: {
     trigger: ".scene-5-train",
@@ -345,8 +384,8 @@ let tlTrain = gsap.timeline({
 });
 
 tlTrain
-  .to(".scene-4-dark", { backgroundColor: "var(--color-gray-20)" }, 0)
-  .to(".scene-4-basement", { backgroundColor: "var(--color-gray-20)" }, 0)
+  // .to(".scene-4-dark", { backgroundColor: "var(--color-gray-20)" }, 0)
+  // .to(".scene-4-basement", { backgroundColor: "var(--color-gray-20)" }, 0)
   // .to(".scene-5", { backgroundImage: "linear-gradient(0deg, #e0e0e0 0%, #e0e0e0 50%, #2d2d2d 100%)" }, 0)
   .fromTo(".train", { x: "100dvw" }, { x: "-100dvw" }, 0);
 
@@ -355,7 +394,7 @@ ScrollTrigger.create({
   trigger: ".scene-5-clouds",
   start: "top top",
   endTrigger: ".scene-5-names",
-  end: "bottom 95%",
+  end: "bottom bottom",
   pin: ".scene-5-clouds",
   pinSpacing: false,
   // markers: true,
@@ -367,7 +406,7 @@ let tlBird = gsap.timeline({
     trigger: ".scene-5-clouds",
     start: "top top",
     endTrigger: ".scene-5-names",
-    end: "bottom 95%",
+    end: "bottom bottom",
     scrub: 3,
     // markers: true,
   },
@@ -384,7 +423,7 @@ let tlScene5Names = gsap.timeline({
   scrollTrigger: {
     trigger: ".scene-5-names",
     start: "top 80%",
-    end: "bottom 95%",
+    end: "bottom bottom",
     scrub: 3,
     // markers: true,
   },
@@ -405,10 +444,10 @@ tlScene5Names
   .fromTo(".scene-5-names-alive svg", {opacity:0}, {opacity: 1, stagger:0.3},0)
 
 
+// ================
+// generic gedeelte
+// ================
 
-  // generic gedeelte
- 
-gsap.registerPlugin(ScrollTrigger);
  
 // Selecteer elk blok
 document.querySelectorAll('.story-block').forEach((block, index) => {

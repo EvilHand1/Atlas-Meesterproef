@@ -25,9 +25,14 @@ section {
   height: 100dvh;
   overflow: hidden;
 
-  background: linear-gradient(180deg, var(--color-gray-80) 0%, var(--color-gray-80) 50%, var(--color-gray-20) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--color-gray-80) 0%,
+    var(--color-gray-80) 50%,
+    var(--color-gray-20) 100%
+  );
 
-  >* {
+  > * {
     position: absolute;
   }
 }
@@ -51,7 +56,7 @@ section {
   text-align: center;
 
   font-size: var(--font-h1);
-  padding: .5rem;
+  padding: 0.5rem;
 
   z-index: 2;
 }
@@ -106,8 +111,13 @@ section {
 }
 
 .scene-1-transition {
-
-  background-image: linear-gradient(to right, var(--color-gray-60), var(--color-gray-60) 80px, var(--color-gray-40) 80px, var(--color-gray-40));
+  background-image: linear-gradient(
+    to right,
+    var(--color-gray-60),
+    var(--color-gray-60) 80px,
+    var(--color-gray-40) 80px,
+    var(--color-gray-40)
+  );
   background-size: 160px 100%;
   width: 100dvw;
   height: 100dvh;
@@ -156,7 +166,13 @@ section {
   height: 900dvh;
 
   background-color: var(--color-gray-40);
-  background-image: linear-gradient(to right, var(--color-gray-60), var(--color-gray-60) 80px, var(--color-gray-40) 80px, var(--color-gray-40));
+  background-image: linear-gradient(
+    to right,
+    var(--color-gray-60),
+    var(--color-gray-60) 80px,
+    var(--color-gray-40) 80px,
+    var(--color-gray-40)
+  );
 
   background-size: 160px 100%;
   * {
@@ -201,7 +217,15 @@ section {
 }
 
 .floor {
-  background: linear-gradient(180deg, transparent 0%, transparent 80%, var(--color-black) 80%, var(--color-black) 100%);
+
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 80%,
+    var(--color-black) 80%,
+    var(--color-black) 100%
+  );
+
   top: 25dvh;
   width: 100dvw;
   height: 10dvh;
@@ -261,6 +285,7 @@ section {
 
 .scene-2-grandmas{
     top: 175dvh;
+
   height: 200dvh;
   width: 100dvw;
 }
@@ -353,8 +378,13 @@ section {
   position: relative;
   width: 100dvw;
   height: 400dvh;
-background-image:  linear-gradient(var(--color-gray-60) 8px, transparent 8px), linear-gradient(to right, var(--color-gray-60) 8px, var(--color-gray-40) 8px);
-background-size: 140px 140px;
+  background-image: linear-gradient(var(--color-gray-60) 8px, transparent 8px),
+    linear-gradient(
+      to right,
+      var(--color-gray-60) 8px,
+      var(--color-gray-40) 8px
+    );
+  background-size: 140px 140px;
 }
 
 .dentist-text {
@@ -407,22 +437,20 @@ background-size: 140px 140px;
   top: 45%;
 }
 
-
 @media screen and (max-width: 800px) {
-  .customer:nth-child(-n+4){
-    display:none;
+  .customer:nth-child(-n + 4) {
+    display: none;
   }
 
-  .customer{
-height: 15dvh;
+  .customer {
+    height: 15dvh;
   }
-  .customer-2{
-  height: 12dvh;
-}
-  .dentist{
-height: 15dvh;
-top: 10dvh;
-
+  .customer-2 {
+    height: 12dvh;
+  }
+  .dentist {
+    height: 15dvh;
+    top: 10dvh;
   }
 
   .dentist-text-1,
@@ -437,7 +465,7 @@ top: 10dvh;
 /* ================ */
 
 .scene-4 {
-  background-color: var(--color-gray-60);
+  background-color: var(--color-gray-40);
   /* height: 100dvh; */
   /* align-items: center; */
 }
@@ -445,7 +473,7 @@ top: 10dvh;
 .scene-4-text {
   height: 10dvh;
   width: 100dvw;
-  /* margin: 0 1rem; */
+  background-color: var(--color-gray-60);
   justify-content: center;
   align-items: center;
   font-size: var(--font-body);
@@ -455,21 +483,43 @@ top: 10dvh;
 
 .scene-4-text p {
   margin: 0 1rem;
-    font-size: var(--font-big);
-        text-align: center;
+  font-size: var(--font-big);
+  text-align: center;
 }
 
 .scene-4-basement {
-  height: 100dvh;
+  /* height: 100dvh; */
+  /* width: 100dvw; */
+  /* align-items: center; */
+  background-color: rgba(0, 255, 0, 0.1); 
+  /* justify-content: space-between; */
+  height: 100dvw;
+  /* gap: 10rem; */
+}
+
+.lamp-container {
   width: 100dvw;
-  align-items: center;
-  /* background-color: rgba(0, 255, 0, 0.1);  */
+  display: flex;
+  justify-content: center;
 }
 
 .lamp {
   width: 3dvw;
   height: auto;
   transform-origin: top center;
+}
+
+.scene-4-familie {
+  width: 100dvw;
+  border-bottom: 1rem solid var(--color-black);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.scene-4-familie svg {
+  width: 7dvw;
+  height: auto;
 }
 
 .scene-4-dark {
@@ -484,7 +534,7 @@ top: 10dvh;
   color: var(--color-white);
   max-width: 60ch;
   margin: 0 2rem;
-    font-size: var(--font-big);
+  font-size: var(--font-big);
 }
 
 /* ====== */
@@ -524,11 +574,9 @@ top: 10dvh;
   height: min-content;
   align-items: center;
   gap: 2rem;
-  
-
 }
 
-.scene-5-names p{
+.scene-5-names p {
   font-size: var(--font-medium);
 }
 .scene-5-names-text {
@@ -567,7 +615,6 @@ strong {
   }
 } */
 
-
 .story-block {
   height: 100vh;
   display: flex;
@@ -580,19 +627,19 @@ strong {
   overflow: hidden;
   text-align: left;
 }
- 
+
 .story-block h2 {
   font-size: 3rem;
   margin-bottom: 1rem;
   color: #111;
 }
- 
+
 .story-block p {
   font-size: 1.5rem;
   line-height: 1.6;
   color: #444;
 }
- 
+
 .story-block img {
   max-width: 100%;
   height: auto;
@@ -600,21 +647,20 @@ strong {
   object-fit: contain;
   border-radius: 1rem;
 }
- 
+
 .story-block .text-content {
   flex: 1;
   opacity: 0;
   transform: translateX(-100px);
   transition: all 0.8s ease-out;
 }
- 
+
 .story-block img {
   flex: 1;
   opacity: 0;
   transform: translateX(100px);
   transition: all 0.8s ease-out;
 }
-
 
 /* Scene transition generic */
 .scene-1-transition-generic {
@@ -649,12 +695,12 @@ strong {
     text-align: center;
     padding: 2rem 3vw;
   }
- 
+
   .story-block .text-content,
   .story-block img {
     transform: translateY(50px);
     flex: unset; /* Hier haal je flex: 1 weg */
-    width: 100%;  /* Zorg dat ze volledige breedte pakken binnen de kolom */
+    width: 100%; /* Zorg dat ze volledige breedte pakken binnen de kolom */
   }
 
   .story-block h2 {
@@ -665,7 +711,6 @@ strong {
     font-size: 1.1rem;
   }
 }
-
 
 @media (max-width: 480px) {
   .story-block h2 {
@@ -680,4 +725,3 @@ strong {
     max-height: 40vh;
   }
 }
-
