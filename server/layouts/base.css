@@ -31,11 +31,15 @@ header {
   padding: 1em;
 }
 
-.menu a:hover{
+.menu a:hover,
+.menu a:focus
+{
   color: #f0f0f0;
 }
 
-.dropbtn:hover{
+.dropbtn:hover,
+.dropbtn:focus
+{
   color: black;
   background-color: #f0f0f0;;
 }
@@ -65,7 +69,9 @@ header {
   text-decoration: none;
 }
 
-.dropdown-content li a:hover {
+.dropdown-content li a:hover,
+.dropdown-content li a:focus
+{
   background-color: black;
 }
 

@@ -63,7 +63,8 @@ body:has(#sidebar-toggle:checked) .grid-wrapper {
   border-bottom: 1px solid #212121;
 }
 
-.sidebar-content form li a:hover {
+.sidebar-content form li a:hover,
+.sidebar-content form li a:focus {
   transform: scale(1.05);
   background-color: white;
   border: none;
@@ -327,7 +328,8 @@ h1 {
   font-family: "Merienda", cursive;
 }
 
-.button-container button:hover {
+.button-container button:hover,
+.button-container button:focus {
   background-color: #333333;
   color: #F1BD1E;
   transform: translateY(-4px);
@@ -382,7 +384,8 @@ h1 {
   text-align: center;
 }
 
-.uitgelicht li:hover {
+.uitgelicht li:hover,
+.uitgelicht li:focus {
   background-color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   scale: 1.05;
@@ -415,7 +418,8 @@ h1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .uitgelicht li:hover {
+  .uitgelicht li:hover,
+  .uitgelicht li:focus {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
