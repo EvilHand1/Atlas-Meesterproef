@@ -3,20 +3,53 @@ html {
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   margin: 0;
-  background-color: rgb(177, 177, 177);
-  overflow-x: visible;
+  overflow-x: hidden;
+}
+
+body.straat-vrolikstraat {
+  background-image: url("/client/public/images/vrolikstraatoorlog.jpg");
+  background-size: cover; /* of: contain, of: auto */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.straat-beukenweg {
+  background-image: url("/client/public/images/beukenwegoorlog.jpg");
+  background-size: cover; /* of: contain, of: auto */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.straat-derde-oosterparkstraat {
+  background-image: url("/client/public/images/derdeoostoorlog.jpg");
+  background-size: cover; /* of: contain, of: auto */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.straat-tweede-oosterparkstraat {
+  background-image: url("/client/public/images/tweedeoostoorlog.jpg");
+  background-size: cover; /* of: contain, of: auto */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+body.straat-eikenweg {
+  background-image: url("/client/public/images/eikenwegoorlog.jpg");
+  background-size: cover; /* of: contain, of: auto */
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .wrapper-body-street {
-  background: linear-gradient(
-    180deg,
-    var(--color-gray-80) 0%,
-    var(--color-gray-80) 50%,
-    var(--color-gray-20) 100%
-  );
-  overflow-x: hidden;
+  overflow-x: auto;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 #huis {
@@ -30,10 +63,17 @@ body {
 
 .wrapper {
   display: flex;
+  background-color: none;
   flex-direction: row;
   gap: 1rem;
   width: max-content;
-  animation: street-scroll linear infinite;
+  overflow-x: auto;
+  animation: street-scroll 60s linear infinite;
+  animation-play-state: running;
+}
+
+.wrapper > a {
+  display: inline-block;
 }
 
 .wrapper svg {
@@ -51,8 +91,32 @@ body {
   gap: 0.5rem;
 }
 
-.header-street {
-  padding: 2rem 0;
+.bovenaanPagina {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1.5rem;
+}
+
+.footer-street {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  box-sizing: border-box;
+  background: #212121;
+  padding: 1rem;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-street a {
+  color: white;
+  text-decoration: none;
+  font-size: clamp(0.875rem, 0.7763rem + 0.3947vw, 1.25rem);
 }
 
 @keyframes street-scroll {
@@ -65,8 +129,45 @@ body {
   }
 }
 
+@keyframes knipper {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 768px) {
-  .wrappe svg {
-    height: 50vh;
+  .wrapper {
+    animation: none;
+  }
+
+  .header-street {
+    padding: none;
+  }
+
+  .bovenaanPagina h4 {
+    animation: knipper 2s infinite ease;
+    letter-spacing: 4px;
+  }
+}
+
+@media (min-width: 768px) {
+  .bovenaanPagina h4 {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrapper {
+    animation: street-scroll 60s linear infinite;
+    animation-play-state: running;
+    overflow-x: hidden; /* op desktop verberg je de scrollbar */
   }
 }

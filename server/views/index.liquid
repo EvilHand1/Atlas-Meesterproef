@@ -9,19 +9,19 @@
 
 
     <div class="sidebar-content">
-      <h3 class="h3">De straten</h3>
+      <div class="sidebarWrapping">
+        <h3>De straten</h3>
+        <p>Hieronder staat de lijst met straten uit de Oosterparkbuurt, kies er een om de verhalen te bekijken.</p>
+      </div>
       <form action="">
         <fieldset>
           <ul>
             {% for straat in straten %}
             <li>
-             
-              <a
-               href="/{{ straat | urlencode }}">
-                {% comment %} <img src="/client/SVG/Housegood1.svg" alt=""> {% endcomment %}
-               {{ straat }}</a>
-            </li>
-            {% endfor %}
+              <a href="/{{ straat | urlencode }}" class="sidebar-link" data-straat="{{ straat }}">
+                {{ straat }}
+              </a>
+            </li>{% endfor %}
           </ul>
         </fieldset>
       </form>
@@ -37,6 +37,23 @@
   <div>
 
     <section class="content">
+
+      <section class="uitgelicht">
+        <div class="uitlichting">
+          <h2 class="titelUitgelicht">Uitgelichte verhalen</h2>
+          <p>Kies hieronder een van de generieke verhalen van een willekeurig persoon uit de Oosterparkbuurt.</p>
+        </div>
+        <ul>
+          <li><a href="/verhaal/Leo%20de%20Vries"><span>Leo de Vries</span><img src="/client/SVG/bankmeneer.svg"></a>
+          </li>
+          <li><a href="/verhaal/Jozeph%20van%20den%20Bergh"><span>Jozeph van den Bergh</span><img
+                src="/client/SVG/manachterbureau.svg"></a></li>
+          <li><a href="/verhaal/Mozes%20Zurel%20en%20gezin"><span>Mozes Zurel</span><img
+                src="/client/SVG/bakker.svg"></a>
+          </li>
+        </ul>
+
+      </section>
 
 
       <div id="story-overlay" class="overlay-screen">
@@ -190,54 +207,54 @@
 
 
           {% assign eerste_straat = straten[0] %}
-          <a tabindex="-1" class="link-vrolik straat-link" href="/{{ eerste_straat | urlencode }}" data-straat="{{ eerste_straat }}">
+          <a class="link-vrolik straat-link" href="/{{ eerste_straat | urlencode }}" data-straat="{{ eerste_straat }}">
             <path class="straat-path"
               d="M 96.5 49.55 L 92.15 51.56 L 91.55 51.85 L 85.63 54.55 L 77.45 58.40 L 76.98 58.66 L 76.45 59.10 L 74.89 59.80 L 74.07 59.94 L 57.94 67.36 L 57.64 67.57 L 57.21 67.89 L 55.11 68.84 L 54.65 69.02 L 53.96 69.18 L 53.33 69.48 L 36.50 77.42 L 35.00 78.10 L 34.48 78.19 L 29.97 80.39 L 28.93 80.7" />
           </a>
 
           {% assign tweede_straat = straten[1] %}
-          <a tabindex="-1" class="link-beuken straat-link" href="/{{ tweede_straat | urlencode }}" data-straat="{{ tweede_straat }}">
+          <a class="link-beuken straat-link" href="/{{ tweede_straat | urlencode }}" data-straat="{{ tweede_straat }}">
             <path class="straat-path"
               d="M 49.47 58.07 L 49.74 57.97 L 50.09 57.99 L 50.46 58.11 L 50.78 58.30 L 51.05 58.51 L 51.25 58.81 L 53.34 63.62 L 53.55 64.20 L 53.55 64.52 L 53.45 64.88 L 53.28 65.18 L 53.13 65.31 L 53.01 65.37 L 52.76 65.48" />
           </a>
 
 
           {% assign derde_straat = straten[2] %}
-          <a tabindex="-1" class="link-eiken straat-link" href="/{{ derde_straat | urlencode }}" data-straat="{{ derde_straat }}">
+          <a class="link-eiken straat-link" href="/{{ derde_straat | urlencode }}" data-straat="{{ derde_straat }}">
             <path class="straat-path" d="M 75.76 63.58 L 74.07 59.94 L 72.5 55.95" />
           </a>
 
           {% assign vierde_straat = straten[3] %}
-          <a tabindex="-1" class="link-boerhaave straat-link" href="/{{ vierde_straat | urlencode }}"
+          <a class="link-boerhaave straat-link" href="/{{ vierde_straat | urlencode }}"
             data-straat="{{ vierde_straat }}">
             <path class="straat-path" d="M 19.70 41.55 L 24.2 39.9" />
           </a>
           {% assign vijfde_straat = straten[4] %}
-          <a tabindex="-1" class="link-ooster straat-link" href="/{{ vijfde_straat | urlencode }}" data-straat="{{ vijfde_straat }}">
+          <a class="link-ooster straat-link" href="/{{ vijfde_straat | urlencode }}" data-straat="{{ vijfde_straat }}">
             <path class="straat-path"
               d="M 129.7 90.0 L 120.0 94.0 L 119.1 94.4 L 97.3 104.2 L 94.8 105.3 L 70.8 115.4 L 67.7 116.7" />
           </a>
           {% assign zesde_straat = straten[5] %}
-          <a tabindex="-1" class="link-derde-oost straat-link" href="/{{ zesde_straat | urlencode }}"
+          <a class="link-derde-oost straat-link" href="/{{ zesde_straat | urlencode }}"
             data-straat="{{ zesde_straat }}">
             <path class="straat-path"
               d="M 34.48 72.15 L 39.47 69.94 L 40.76 69.79 L 41.82 69.24 L 44.25 68.05 L 45.05 67.30 L 50.33 64.90 L 51.30 64.48 L 51.72 64.31 L 52.41 64.03 L 53.34 63.62 L 70.90 55.55 L 72.02 55.22 L 77.76 52.81 L 78.87 52.21 L 79.72 51.59 L 80.62 50.73 L 81.18 50.00" />
           </a>
 
           {% assign zevende_straat = straten[6] %}
-          <a tabindex="-1" class="link-tweede-oost straat-link" href="/{{ zevende_straat | urlencode }}"
+          <a class="link-tweede-oost straat-link" href="/{{ zevende_straat | urlencode }}"
             data-straat="{{ zevende_straat }}">
             <path class="straat-path" d="M 28.65 69.2 L 15.99 74.65 L 14.09 75.35" />
           </a>
 
           {% assign achtste_straat = straten[7] %}
-          <a tabindex="-1" class="link-camper straat-link" href="/{{ achtste_straat | urlencode }}"
+          <a class="link-camper straat-link" href="/{{ achtste_straat | urlencode }}"
             data-straat="{{ achtste_straat }}">
             <path class="straat-path" d="M 22.73 49.99 L 21.10 46.15 L 19.45 41.85" />
           </a>
 
           {% assign negende_straat = straten[8] %}
-          <a tabindex="-1" class="link-kastanje straat-link" href="/{{ negende_straat | urlencode }}"
+          <a class="link-kastanje straat-link" href="/{{ negende_straat | urlencode }}"
             data-straat="{{ negende_straat }}">
             <path class="straat-path"
               d="
@@ -251,17 +268,7 @@
 
     </section>
 
-    <section class="uitgelicht">
-      <h2>Uitgelichte verhalen</h2>
-      <ul>
-        <li><span>Leo de Vries</span><a href="/verhaal/Leo%20de%20Vries"><img src="/client/SVG/bankmeneer.svg"></a></li>
-        <li><span>Jozeph van den Bergh</span><a href="/verhaal/Jozeph%20van%20den%20Bergh"><img
-              src="/client/SVG/manachterbureau.svg"></a></li>
-        <li><span>Mozes Zurel</span><a href="/verhaal/Mozes%20Zurel%20en%20gezin"><img src="/client/SVG/bakker.svg"></a>
-        </li>
-      </ul>
 
-    </section>
   </div>
 
 

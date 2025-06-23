@@ -1,72 +1,75 @@
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block head %}
-      <title>{{ title }}</title>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block head %}
+  <title>{{ title }}</title>
+  {% endblock %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+  <link rel="stylesheet" href="/index.css">
+  <script src="/index.js" defer></script>
+  {% block styles %}
+  {% endblock %}
+  {% block scripts %}
+  {% endblock %}
+</head>
+
+<body class="{{ bodyClass }}">
+  <header>
+    <!-- Logo -->
+    <a href="/">
+      <img class="logo" src="/client/public/images/logo.png" alt="Logo">
+
+    </a>
+
+    <a href="/overons" class="home-{{ forloop.index }}">
+      over ons
+    </a>
+
+    <!-- Navigatie -->
+    {% comment %} <nav>
+      <ul class="menu">
+
+        <!-- Straten Dropdown -->
+        <li class="dropdown">
+          <button class="dropbtn">Straten ▼</button>
+          <ul class="dropdown-content">
+            {% for straat in straten %}
+            <li>
+              <a href="/{{ straat | urlencode }}">{{ straat }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <!-- Verhalen Dropdown -->
+        <li class="dropdown">
+          <button class="dropbtn">Verhalen ▼</button>
+          <ul class="dropdown-content">
+            <li>
+              <a href="/verhaal/Leo%20de%20Vries">Leo de Vries</a>
+            </li>
+            <li>
+              <a href="/verhaal/Jozeph%20van%20den%20Bergh">Jozeph van den Bergh</a>
+            </li>
+            <li>
+              <a href="/verhaal/Mozes%20Zurel%20en%20gezin">Mozes Zurel</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav> {% endcomment %}
+  </header>
+  <main>
+
+    {% block content %}
     {% endblock %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
-    <link rel="stylesheet" href="/index.css">
-    <script src="/index.js" defer></script>
-    {% block styles %}
-    {% endblock %}
-    {% block scripts %}
-    {% endblock %}
-  </head>
+  </main>
+</body>
 
-  <body>
-    <header>
-      <!-- Logo -->
-      <a href="/">
-        <img
-          class="logo"
-          src="/client/public/images/logo.png"
-          alt="Logo">
-
-      </a>
-
-      <!-- Navigatie -->
-      <nav>
-        <ul class="menu">
-
-          <!-- Straten Dropdown -->
-          <li class="dropdown">
-            <button class="dropbtn">Straten ▼</button>
-            <ul class="dropdown-content">
-              {% for straat in straten %}
-                <li>
-                  <a href="/{{ straat | urlencode }}">{{ straat }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-
-          <!-- Verhalen Dropdown -->
-          <li class="dropdown">
-            <button class="dropbtn">Verhalen ▼</button>
-            <ul class="dropdown-content">
-              <li>
-                <a href="/verhaal/Leo%20de%20Vries">Leo de Vries</a>
-              </li>
-              <li>
-                <a href="/verhaal/Jozeph%20van%20den%20Bergh">Jozeph van den Bergh</a>
-              </li>
-              <li>
-                <a href="/verhaal/Mozes%20Zurel%20en%20gezin">Mozes Zurel</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-
-      {% block content %}
-      {% endblock %}
-    </main>
-  </body>
 </html>

@@ -2,10 +2,14 @@
 
 {% block content %}
 
-<div class="wrapper-body-street">
+<a href="/">Terug naar home</a>
 
+<div class="bovenaanPagina">
   <h1 class="header-street">{{ straatnaam }}</h1>
+  <h4>Scroll ← ← ←</h4>
+</div>
 
+<div class="wrapper-body-street">
 
   <section class="wrapper">
     {% for adres in huidigAdres %}
@@ -102,5 +106,27 @@
   </section>
 
 </div>
+
+{% assign huidigeIndex = -1 %}
+{% for straat in straten %}
+{% if straat == straatnaam %}
+{% assign huidigeIndex = forloop.index0 %}
+{% endif %}
+{% endfor %}
+
+{% assign vorigeIndex = huidigeIndex | minus: 1 %}
+{% assign volgendeIndex = huidigeIndex | plus: 1 %}
+
+{% assign vorigeStraat = straten[vorigeIndex] %}
+{% assign volgendeStraat = straten[volgendeIndex] %}
+
+<footer class="footer-street">
+  {% if vorigeStraat %}
+  <a href="/{{ vorigeStraat }}">vorige straat</a>
+  {% endif %}
+  {% if volgendeStraat %}
+  <a href="/{{ volgendeStraat }}">volgende straat</a>
+  {% endif %}
+</footer>
 
 {% endblock %}
