@@ -2,45 +2,6 @@ import "./index.css";
  
 console.log("Hello, world123");
  
-document.addEventListener("DOMContentLoaded", function () {
-  const yellowShapes = Array.from(
-    document.querySelectorAll(
-      'svg [fill="#F9EA3E"], svg [fill="#f9ea3e"], svg .cls-1, svg .cls-2',
-    ),
-  );
-  yellowShapes.forEach((el) => el.classList.add("yellow-anim"));
- 
-  for (let i = yellowShapes.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [yellowShapes[i], yellowShapes[j]] = [yellowShapes[j], yellowShapes[i]];
-  }
- 
-  yellowShapes.forEach((shape, i) => {
-    setTimeout(() => {
-      shape.setAttribute("fill", "#000");
-      shape.classList.remove("cls-1", "cls-2");
-    }, i * 500);
-  });
-});
- 
-window.addEventListener("DOMContentLoaded", () => {
-  const wrapper = document.querySelector(".wrapper");
-  const homes = wrapper.querySelectorAll("#huis").length;
- 
-  if (homes >= 4) {
-    const secondsPerHome = 1.5;
-    const minDuration = 20;
-    const maxDuration = 60;
- 
-    let duration = homes * secondsPerHome;
-    duration = Math.max(minDuration, Math.min(duration, maxDuration));
- 
-    wrapper.style.animationDuration = `${duration}s`;
-  } else {
-    wrapper.style.animation = "none";
-  }
-});
- 
 const tooltip = document.getElementById("tooltip");
 const links = document.querySelectorAll(".straat-link");
  
@@ -64,50 +25,7 @@ links.forEach((link) => {
   });
 });
  
-gsap.from('svg[aria-label="introSVG"] path', {
-  drawSVG: 0,
-  duration: 30,
-  ease: "power1.inOut",
-});
- 
-const steps = document.querySelectorAll(".story-step");
-const overlay = document.getElementById("story-overlay");
-const title = document.querySelector(".story h1");
-const prevBtn = document.getElementById("prevBtn");
-let currentStep = 0;
- 
-function showStep(index) {
-  steps.forEach((step) => step.classList.remove("active"));
-  steps[index].classList.add("active");
- 
-  if (index === 0) {
-    title.style.display = "block";
-    prevBtn.style.display = "none";
-  } else {
-    title.style.display = "none";
-    prevBtn.style.display = "inline-block";
-  }
-}
- 
-document.getElementById("nextBtn").addEventListener("click", () => {
-  if (currentStep < steps.length - 1) {
-    currentStep++;
-    showStep(currentStep);
-  } else {
-    overlay.style.display = "none";
-  }
-});
- 
-document.getElementById("prevBtn").addEventListener("click", () => {
-  if (currentStep > 0) {
-    currentStep--;
-    showStep(currentStep);
-  }
-});
- 
-showStep(currentStep);
- 
- 
+
 document.querySelectorAll('.dropbtn').forEach(button => {
   button.addEventListener('click', function (e) {
       e.preventDefault();

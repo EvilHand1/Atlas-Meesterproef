@@ -39,7 +39,6 @@ section {
 
 .skyline {
   width: 50dvw;
-  z-index: -1;
   top: 15%;
 }
 
@@ -72,6 +71,7 @@ section {
 .tree {
   width: 15dvw;
   top: 45%;
+  z-index: 1;
 }
 
 .tree-1 {
@@ -86,6 +86,7 @@ section {
   width: 5dvw;
   top: 55%;
   left: 40%;
+  z-index: 1;
 }
 
 .cloud {
@@ -764,4 +765,61 @@ strong {
 
 .end-text-container h2 {
     font-size: 1.5rem;
+  }
+
+
+
+  @media (prefers-reduced-motion: reduce) {
+    .scene-2{
+      height:auto;
+    }
+    .scene-2-wedding{
+      top:0;
+      height: 90dvh;
+    }
+    .scene-2-children{
+      top: 0;
+      height: 75dvh;
+    }
+    .scene-2-grandmas{
+      top:0;
+      height: 80dvh;
+    }
+    .scene-3{
+      height: auto;
+    }
+    .scene-3-text-1, .scene-3-text-2, .scene-3-text-3 {
+     /* height: 20dvh; */
+     height: auto;
+    }
+    .scene-4-basement{
+      height: auto;
+    }
+    .scene-4-dark{
+      height: auto;
+    }
+
+.story-block img {
+  opacity: 1;
+}
+.story-block .text-content {
+  opacity: 1;
+}
+
+#bird-1-generic,
+#bird-2-generic,
+#bird-3-generic,
+#bird-4-generic {
+  visibility: visible;
+}
+#train-cloud-1-generic,
+#train-cloud-2-generic,
+#train-cloud-3-generic,
+#train-cloud-4-generic,
+.train-generic
+{
+  visibility: hidden;
+}
+
+
   }

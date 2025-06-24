@@ -1,3 +1,8 @@
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  gsap.globalTimeline.clear();
+  ScrollTrigger.getAll().forEach(t => t.disable(true));
+} else {
+
 gsap.registerPlugin(SplitText, ScrollTrigger, MorphSVGPlugin);
 
 // ==============================
@@ -20,11 +25,11 @@ tlScene1
   .to(".cloud-1", { x: "50vw", duration: 1 }, 0)
   .to(".cloud-2", { x: "50vw", duration: 1 }, 0)
   .to(".cloud-3", { x: "-5vw", duration: 1 }, 0)
-  .to(".skyline-1", { x: "-100vw", y: "25vh", scale: 0.1, duration: 3 }, 0.2)
-  .to(".skyline-2", { x: "100vw", y: "25vh", scale: 0.1, duration: 3 }, 0.2)
-  .to(".tree-1", { x: "-250vw", scale: 10, duration: 3 }, 0.2)
-  .to(".tree-2", { x: "250vw", scale: 10, duration: 3 }, 0.2)
-  .to(".bike", { x: "-175vw", scale: 20, duration: 3 }, 0.2)
+  .to(".skyline-1", { x: "-100vw", scale: 0.1, duration: 3 }, 0.2)
+  .to(".skyline-2", { x: "100vw", scale: 0.1, duration: 3 }, 0.2)
+  .to(".tree-1", { x: "-275vw", scale: 10, y: "100vh", duration: 3 }, 0.2)
+  .to(".tree-2", { x: "275vw", scale: 10, y: "100vh", duration: 3 }, 0.2)
+  .to(".bike", { x: "-250vw", y: "100vh", scale: 10, duration: 3 }, 0.2)
   .to(".house", { scale: 50, duration: 3 }, 0.2)
   .to(".scene-1-transition", { opacity: 1 }, 1)
   .to(".scene-1-transition-generic", {opacity: 1 }, 1);
@@ -552,3 +557,4 @@ gsap.fromTo(".end-text-generic",
     }
   }
 );
+}
