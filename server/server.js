@@ -92,12 +92,15 @@ app.get('/verhaal/:naam', async (req, res) => {
 });
 
 
-app.get('/:straatnaam/:huisnummer', async (req, res) => {
+app.get('/:straatnaam/:huisinfo', async (req, res) => {
   try {
     const straatnaam = decodeURIComponent(req.params.straatnaam.trim());
+    const huisinfo = decodeURIComponent(req.params.huisinfo.trim());
 
-    const huisnummer = parseInt(req.params.huisnummer, 10);
-    const toevoeging = req.params.toevoeging?.trim() || null;
+    // Split huisinfo op eerste '-' (bijv. '15-boven' → 15 en 'boven')
+    const [huisnummerString, ...toevoegingParts] = huisinfo.split('-');
+    const huisnummer = parseInt(huisnummerString, 10);
+    const toevoeging = toevoegingParts.length > 0 ? toevoegingParts.join('-') : null;
 
     const [addressRes, personRes] = await Promise.all([
       fetch(jsonAdress),
@@ -107,11 +110,10 @@ app.get('/:straatnaam/:huisnummer', async (req, res) => {
     const adressen = (await addressRes.json()).data;
     const personen = (await personRes.json()).data;
 
-    // Zoek het specifieke adres
     const adres = adressen.find(adres =>
       adres.street?.trim() === straatnaam &&
       parseInt(adres.house_number, 10) === huisnummer &&
-      ((adres.addition?.trim() || '') === (toevoeging || ''))
+      ((adres.addition?.trim().toLowerCase() || '') === (toevoeging || '').toLowerCase())
     );
 
     if (!adres) {
@@ -129,12 +131,13 @@ app.get('/:straatnaam/:huisnummer', async (req, res) => {
       adres,
       bewoners
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).send('Fout bij ophalen van huispagina');
   }
 });
+
+
 
 
 

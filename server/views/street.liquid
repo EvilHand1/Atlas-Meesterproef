@@ -12,7 +12,8 @@
   <section class="wrapper">
     {% for adres in huidigAdres %}
 
-    <a id="huis" class="home-{{ forloop.index }}" href="/{{ adres.street }}/{{ adres.house_number }}">
+<a id="huis" class="home-{{ forloop.index }}" href="/{{ adres.street }}/{{ adres.house_number }}{% if adres.addition %}-{{ adres.addition | downcase | replace: ' ', '' }}{% endif %}">
+
 
 
       <section class="text-wrapper">
