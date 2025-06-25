@@ -6,7 +6,7 @@
 
   <h1 class="header-street">{{ straatnaam }}</h1>
 
-
+<div class="wrapper-container">
   <section class="wrapper">
     {% for adres in huidigAdres %}
 
@@ -100,7 +100,9 @@
 
     {% endfor %}
   </section>
-
 </div>
+</div>
+
+<script src="/client/street.js"></script>
 
 {% endblock %}
