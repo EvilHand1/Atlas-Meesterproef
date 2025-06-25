@@ -131,3 +131,15 @@ scrollContainer.addEventListener("wheel", (e) => {
 //     scrollPaused = false;
 //   }, 2000);
 // });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.street-cloud').forEach((cloud) => {
+    const rand = Math.floor(Math.random() * 10) + 1;
+    cloud.classList.add('street-cloud-' + rand);
+  });
+  document.querySelectorAll('.header-cloud').forEach((cloud) => {
+    const rand = Math.floor(Math.random() * 5) + 1;
+    cloud.classList.add('header-cloud-' + rand);
+  });
+});

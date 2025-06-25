@@ -15,6 +15,7 @@ body {
       var(--color-gray-80) 50%,
       var(--color-gray-20) 100%);
   overflow-x: hidden;
+  position: relative;
 }
 
 #huis {
@@ -24,6 +25,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  position: relative;
 }
 
 .wrapper {
@@ -86,6 +88,8 @@ body {
 
 .header-street {
   padding: 2rem 0;
+  z-index: 2;
+  position: inherit;
 }
 
 @keyframes street-scroll {
@@ -102,4 +106,80 @@ body {
   .wrapper svg {
     height: 50vh;
   }
+}
+
+.street-cloud{
+  position: absolute;
+  height: auto;
+  z-index: -1;
+}
+
+.street-cloud-1{
+      width: 5rem;
+    left: 60%;
+}
+.street-cloud-2{
+  width: 7rem;
+    left: 0%;
+}
+.street-cloud-3{
+     width: 2rem;
+    left: 80%;
+}
+.street-cloud-4{
+      width: 2rem;
+    left: 30%;
+}
+.street-cloud-5{
+  width: 5rem;
+    top: 3rem;
+}
+
+.street-cloud-6{
+      width: 8rem;
+    top: 2rem;
+    left: 60%;
+}
+.street-cloud-7{
+    width: 10rem;
+    top: 0rem;
+    left: 0%;
+}
+.street-cloud-8{
+    width: 3rem;
+    top: 0rem;
+    left: 50%;
+}
+.street-cloud-9{
+   width: 5rem;
+    left: 65%;
+    top: 12rem;
+}
+.street-cloud-10{
+         width: 4rem;
+    left: 0%;
+    top: 12rem;
+}
+
+.header-cloud{
+  position: absolute;
+  z-index: 0;
+}
+
+.header-cloud-1{
+  left:80%;
+}
+.header-cloud-2{
+  left:50%;
+  top: 1rem;
+}
+.header-cloud-3{
+  left:30%;
+  top: 2rem;
+}
+.header-cloud-4{
+  left:0%;
+}
+.header-cloud-5{
+  left:60%;
 }
