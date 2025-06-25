@@ -12,8 +12,8 @@ body:has(#sidebar-toggle:checked) .grid-wrapper {
 }
 
 .sidebar {
-  background-color: var(--color-gray-80);
-  color: #212121;
+  background-color: #212121;
+  color: var(--color-gray-80);
 }
 
 
@@ -49,18 +49,26 @@ body:has(#sidebar-toggle:checked) .grid-wrapper {
 }
 
 .sidebar-content form li a {
-  color: #212121;
-  text-decoration: none;
-  border-top: 1px solid #212121;
-  border-bottom: 1px solid #212121;
-  width: 86%;
-  padding: 1.2em;
-  display: inline-block;
-  transition: all 0.3s ease-in-out;
+text-decoration: none;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 12px 18px;
+    background-color: #212121;
+    color: white;
+    font-size: 1.1em;
+    border: 2px solid #F1BD1E;
+    border-left: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-family: "Merienda", cursive;
+    flex-direction: column-reverse;
+    align-items: center;
 
   & span{
     position: relative;
-    top: -.5rem;
+  
   }
 }
 
@@ -70,10 +78,10 @@ body:has(#sidebar-toggle:checked) .grid-wrapper {
 
 .sidebar-content form li a:hover,
 .sidebar-content form li a:focus {
-  transform: scale(1.05);
-  background-color: var(--color-gray-90);;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+         background-color: #333333;
+        color: #F1BD1E;
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -359,8 +367,9 @@ h1 {
   z-index: 100;
 }
 
-.uitgelicht h2 {
+.uitgelicht p {
 border-bottom: #212121 1px solid;
+padding: 1rem;
 }
 
 .uitgelicht ul {
@@ -484,8 +493,8 @@ border-bottom: #212121 1px solid;
  content: "";
       background: url("/client/SVG/Housegood1.svg");
     display: inline-block;
-    width: 1rem;
+    width: 5rem;
     height: 2rem;
-    background-repeat: no-repeat;
-    background-size: contain;
+    background-repeat: repeat-x;
+    background-size: 1rem 2rem;
 }
