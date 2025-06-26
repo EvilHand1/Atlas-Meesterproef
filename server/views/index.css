@@ -44,9 +44,13 @@ body:has(#sidebar-toggle:checked) .grid-wrapper {
   cursor: pointer;
 }
 
-.sidebar-content form li + li a {
+/* .sidebar-content form li + li a {
   border-top: none;
-}
+} */
+
+.sidebar-content form li:nth-child(n+2) a {
+    border-top:none;
+  }
 
 .sidebar-content form li a {
 text-decoration: none;
@@ -70,10 +74,6 @@ text-decoration: none;
     position: relative;
   
   }
-}
-
-.sidebar-content form li:last-child a {
-  border-bottom: 1px solid #212121;
 }
 
 .sidebar-content form li a:hover,
@@ -465,7 +465,6 @@ padding: 1rem;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: 1px solid #212121;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -475,10 +474,18 @@ padding: 1rem;
   .sidebar-content form ul li a {
     width: 100%;
     text-align: center;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
+    /* border-top: 1px solid transparent; */
     padding: .75rem;
     box-sizing: border-box;
+    border-left: 2px solid #F1BD1E;
+  }
+
+  .sidebar-content form li:nth-child(n+3) a {
+    border-top:none;
+  }
+
+  .sidebar-content form li:nth-child(2) a {
+    border-top: 2px solid #F1BD1E;
   }
 }
 
