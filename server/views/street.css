@@ -74,10 +74,22 @@ body {
   margin-top: 1rem;
 }
 
+.uitgelicht-text{
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f1bd1e;
+   transition: all 0.3s ease;
+}
+
 #huis:hover,
 #huis:focus {
-  .svg-wrapper svg {
+  .svg-wrapper svg
+   {
     transform: translateY(-8px) scale(1.025);
+  }
+
+  .detail-bird{
+    transform: translateY(-12px) scale(1.025) scaleX(-1);
   }
 
   .text-wrapper {
@@ -85,7 +97,12 @@ body {
     color: #f1bd1e;
     transform: translateY(-4px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+
   }
+
+      .uitgelicht-text{
+      color: white;
+    }
 }
 
 .header-street {
@@ -203,5 +220,8 @@ body {
   z-index: 1;
   height: 4.5rem;
   width: auto;
-  left: 75%;
+  top:7.75rem;
+  left: 63%;
+  transform: scaleX(-1);
+  transition: all 0.3s ease;
 }
