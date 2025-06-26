@@ -91,17 +91,92 @@ app.get('/verhaal/:naam', async (req, res) => {
   }
 });
 
+// //Deze logica is nodig voor de detail page
+// app.get('/:straatnaam/:huisinfo', async (req, res) => {
+//   try {
+//     const straatnaam = decodeURIComponent(req.params.straatnaam.trim());
+//     const huisinfo = decodeURIComponent(req.params.huisinfo.trim());
+
+//     // Split huisinfo op eerste '-' (bijv. '15-boven' → 15 en 'boven')
+//     const [huisnummerString, ...toevoegingParts] = huisinfo.split('-');
+//     const huisnummer = parseInt(huisnummerString, 10);
+//     const toevoeging = toevoegingParts.length > 0 ? toevoegingParts.join('-') : null;
+
+//     const [addressRes, personRes] = await Promise.all([
+//       fetch(jsonAdress),
+//       fetch(jsonPerson)
+//     ]);
+
+//     const adressen = (await addressRes.json()).data;
+//     const personen = (await personRes.json()).data;
+
+//     const adres = adressen.find(adres =>
+//       adres.street?.trim() === straatnaam &&
+//       parseInt(adres.house_number, 10) === huisnummer &&
+//       ((adres.addition?.trim().toLowerCase() || '') === (toevoeging || '').toLowerCase())
+//     );
+
+//     if (!adres) {
+//       return res.status(404).send('Adres niet gevonden');
+//     }
+
+//     const bewoners = personen.filter(persoon =>
+//       persoon.address_id === adres.id
+//     );
+
+//     res.render('detail', {
+//       straatnaam,
+//       huisnummer,
+//       toevoeging,
+//       adres,
+//       bewoners
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Fout bij ophalen van huispagina');
+//   }
+// });
+
+
+
+// //deze logica is nodig voor de generieke detail page
+// app.get('/:straatnaam/:huisinfo', async (req, res) => {
+//   try {
+//     const straatnaam = decodeURIComponent(req.params.straatnaam.trim());
+//     const huisnummer = parseInt(req.params.huisnummer, 10);
+
+//     console.log(`Request voor: ${straatnaam} ${huisnummer}`);
+
+//     const jsonData = await fs.readFile('client/public/story.json', 'utf-8');
+//     const verhalen = JSON.parse(jsonData).personen;
+
+//     console.log(`Aantal verhalen: ${verhalen.length}`);
+
+//     const randomVerhaal = verhalen[Math.floor(Math.random() * verhalen.length)];
+
+//     console.log(`Gekozen verhaal: ${randomVerhaal.naam}`);
+
+//     res.render('generic', { persoon: randomVerhaal });
+
+
+//   } catch (err) {
+//     console.error('Fout in route:', err);
+//     res.status(500).send('Fout bij ophalen van pagina');
+//   }
+// });
+
 
 app.get('/:straatnaam/:huisinfo', async (req, res) => {
   try {
     const straatnaam = decodeURIComponent(req.params.straatnaam.trim());
     const huisinfo = decodeURIComponent(req.params.huisinfo.trim());
 
-    // Split huisinfo op eerste '-' (bijv. '15-boven' → 15 en 'boven')
+    // Split bijvoorbeeld '13-boven' in huisnummer = 13, toevoeging = 'boven'
     const [huisnummerString, ...toevoegingParts] = huisinfo.split('-');
     const huisnummer = parseInt(huisnummerString, 10);
     const toevoeging = toevoegingParts.length > 0 ? toevoegingParts.join('-') : null;
 
+    // ✅ Haal databasegegevens op
     const [addressRes, personRes] = await Promise.all([
       fetch(jsonAdress),
       fetch(jsonPerson)
@@ -113,7 +188,7 @@ app.get('/:straatnaam/:huisinfo', async (req, res) => {
     const adres = adressen.find(adres =>
       adres.street?.trim() === straatnaam &&
       parseInt(adres.house_number, 10) === huisnummer &&
-      ((adres.addition?.trim().toLowerCase() || '') === (toevoeging || '').toLowerCase())
+      ((adres.addition?.trim() || '') === (toevoeging || ''))
     );
 
     if (!adres) {
@@ -124,13 +199,36 @@ app.get('/:straatnaam/:huisinfo', async (req, res) => {
       persoon.address_id === adres.id
     );
 
-    res.render('detail', {
-      straatnaam,
-      huisnummer,
-      toevoeging,
-      adres,
-      bewoners
-    });
+    // ✅ Als het Oosterpark 13 met Ansel-Cok is → toon detailpagina
+    const isOosterpark13 = straatnaam === 'Oosterpark' && huisnummer === 13;
+    // const bevatAnselCok = bewoners.some(b => b.last_name?.includes('Ansel-Cok'));
+
+    if (isOosterpark13) {
+      return res.render('detail', {
+        straatnaam,
+        huisnummer,
+        toevoeging,
+        adres,
+        bewoners
+      });
+    }
+
+    // ❗ Andere adressen → generieke JSON-verhalenpagina
+    const jsonData = await fs.readFile('client/public/story.json', 'utf-8');
+    const verhalen = JSON.parse(jsonData).personen;
+
+    const randomVerhaal = verhalen[Math.floor(Math.random() * verhalen.length)];
+
+    // var verhaal = verhalen.find(p =>
+    //   p.verhaal.straat?.trim() === `${straatnaam} ${huisnummer}`
+    // );
+
+    // if (!verhaal) {
+       // return res.status(404).send('Generiek verhaal niet gevonden in JSON');
+    // }
+
+    return res.render('generic', { persoon: randomVerhaal });
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Fout bij ophalen van huispagina');

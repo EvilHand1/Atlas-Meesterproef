@@ -5,7 +5,7 @@ section {
 }
 
 .text{
-  background: gray;
+  background: var(--color-gray-60);
     border: .5rem solid black;
     border-style: solid none;
     padding: 1rem;
@@ -543,6 +543,7 @@ section {
   max-width: 60ch;
   margin: 0 2rem;
   font-size: var(--font-big);
+  padding: .5rem;
 }
 
 /* ======= */
@@ -809,17 +810,39 @@ strong {
 #bird-1-generic,
 #bird-2-generic,
 #bird-3-generic,
-#bird-4-generic {
+#bird-4-generic,
+#bird-1,
+#bird-2,
+#bird-3,
+#bird-4  {
   visibility: visible;
 }
 #train-cloud-1-generic,
 #train-cloud-2-generic,
 #train-cloud-3-generic,
 #train-cloud-4-generic,
-.train-generic
+.train-generic,
+#train-cloud-1,
+#train-cloud-2,
+#train-cloud-3,
+#train-cloud-4
 {
   visibility: hidden;
 }
 
-
+  .customer:nth-child(-n + 4) {
+    display: none;
   }
+
+
+  .woman-2{
+    left:0%;
+    transform: scaleX(-1);
+  }
+
+  .grandma-1{
+    transform: scaleX(-1);
+  }
+  }
+
+
